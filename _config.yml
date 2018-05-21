@@ -1,1 +1,5 @@
 theme: jekyll-theme-minimal
+title: PyMacaron
+description: A python micro-service framework
+logo: pymacaron.png
+show_downloads: "true"
