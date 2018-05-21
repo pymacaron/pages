@@ -1,37 +1,52 @@
-## Welcome to GitHub Pages
+## PyMacaron
 
-You can use the [editor on GitHub](https://github.com/pymacaron/web/edit/master/README.md) to maintain and preview the content for your website in Markdown files.
-
-Whenever you commit to this repository, GitHub Pages will run [Jekyll](https://jekyllrb.com/) to rebuild the pages in your site, from the content in your Markdown files.
+PyMacaron is a python framework for defining json/REST apis, implementing and deploying them. PyMacaron lets you focus on your API design and endpoint implementation, while taking care of all the rest.
 
 ### Markdown
 
-Markdown is a lightweight and easy-to-use syntax for styling your writing. It includes conventions for
+Create and deploy a Flask-based REST api running as a Docker container on
+amazon AWS Elastic Beanstalk, in 3 steps:
 
-```markdown
-Syntax highlighted code block
+* Write a swagger specification for your api
+* Tell which Python method to execute for every swagger endpoint
+* Implement the Python methods
 
-# Header 1
-## Header 2
-### Header 3
+BOOM! Your are live on Amazon AWS!
 
-- Bulleted
-- List
+Klue Microservice abstracts away all the scaffholding of structuring your
+Python app, defining routes, serializing/deserializing between json, Python
+objects and databases, containerizing your app and deploying it on Amazon.
 
-1. Numbered
-2. List
+What's left in your codebase is the only thing that matters: your business
+logic.
 
-**Bold** and _Italic_ and `Code` text
+### Details
 
-[Link](url) and ![Image](src)
-```
+[pymacaron](https://github.com/pymacaron/pymacaron) uses
+[pymacaron-core](https://github.com/pymacaron/pymacaron-core) to
+spawn REST apis into a Flask app, based on a swagger 
+specification describing all API endpoints in a friendly yaml format.
 
-For more details see [GitHub Flavored Markdown](https://guides.github.com/features/mastering-markdown/).
+[pymacaron](https://github.com/pymacaron/pymacaron) uses
+[pymacaron-deploy](https://github.com/pymacaron/pymacaron-deploy)
+to easily deploy the micro service as a Docker container running inside Amazon
+Elastic Beanstalk.
 
-### Jekyll Themes
+[pymacaron](https://github.com/pymacaron/pymacaron) gives
+you:
 
-Your Pages site will use the layout and styles from the Jekyll theme you have selected in your [repository settings](https://github.com/pymacaron/web/settings). The name of this theme is saved in the Jekyll `_config.yml` configuration file.
+* A best practice auto-scalling setup on Elastic Beanstalk
+* Error handling and reporting around your api endpoints (via slack or email)
+* Endpoint authentication based on JWT tokens
+* Transparent mapping from json and DynamoDB to Python objects
+* Automated validation of API data and parameters
+* A structured way of blackbox testing your API, integrated in the deploy pipeline
+* A production-grade stack (docker/gunicorn/Flask)
 
-### Support or Contact
+### Example
 
-Having trouble with Pages? Check out our [documentation](https://help.github.com/categories/github-pages-basics/) or [contact support](https://github.com/contact) and we’ll help you sort it out.
+See
+[pymacaron-helloworld](https://github.com/pymacaron/pymacaron-helloworld)
+for an example of a minimal REST api implemented with pymacaron, and
+ready to deploy on docker containers in Amazon EC2.
+
