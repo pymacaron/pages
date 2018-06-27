@@ -28,7 +28,7 @@ spawn REST apis into a Flask app, based on a swagger
 specification describing all API endpoints in a friendly yaml format.
 
 [pymacaron](https://github.com/pymacaron/pymacaron) uses
-[pymacaron-deploy](https://github.com/pymacaron/pymacaron-deploy)
+[pymacaron-aws](https://github.com/pymacaron/pymacaron-aws)
 to easily deploy the micro service as a Docker container running inside Amazon
 Elastic Beanstalk.
 
@@ -74,7 +74,7 @@ this:
 ├── LICENSE                    # You should always have a licence :-)
 ├── README.rst                 # and a readme!
 |
-├── klue-config.yaml           # Settings for pymacaron and pymacaron-deploy
+├── klue-config.yaml           # Settings for pymacaron and pymacaron-aws
 |
 ├── server.py                  # Code to start your server, see below
 |
@@ -186,8 +186,8 @@ following [these instructions](https://github.com/pymacaron/pymacaron-async#setu
 
 ### Deploying as a container in Amazon Beanstalk
 
-Install [pymacaron-deploy](https://github.com/pymacaron/pymacaron-deploy) by
-following [these instructions](https://github.com/pymacaron/pymacaron-deploy#setup).
+Install [pymacaron-aws](https://github.com/pymacaron/pymacaron-aws) by
+following [these instructions](https://github.com/pymacaron/pymacaron-aws#setup).
 
 ### Use Klue's own testing framework
 
@@ -342,7 +342,7 @@ the service as a docker image and deploys it on Amazon Elastic Beanstalk with
 little configuration required.
 
 For details, see
-[pymacaron-deploy](https://github.com/pymacaron/pymacaron-deploy).
+[pymacaron-aws](https://github.com/pymacaron/pymacaron-aws).
 
 
 ### Elastic Beanstalk configuration
@@ -351,7 +351,7 @@ The Klue microservice toolchain is built to deploy services as Docker images
 running inside Amazon EC2 instances in Elastic Beanstalk, behind an Elastic
 Load Balancer. All the details of setting up those Amazon services is handled
 by
-[pymacaron-deploy](https://github.com/pymacaron/pymacaron-deploy)
+[pymacaron-aws](https://github.com/pymacaron/pymacaron-aws)
 and should be left untouched. A few parameters can be adjusted, though. They
 are described in the 'klue-config.yaml' section below.
 
@@ -432,7 +432,7 @@ pymacaron expects the following attributes to be set in
 
 The following variables are needed if you want to deploy to Elastic Beanstalk
 using
-[pymacaron-deploy](https://github.com/pymacaron/pymacaron-deploy):
+[pymacaron-aws](https://github.com/pymacaron/pymacaron-aws):
 
 * 'aws_user' (MANDATORY): name of the IAM user to use when creating the
   Beanstalk environment.
