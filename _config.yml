@@ -1,5 +1,5 @@
 theme: jekyll-theme-minimal
 title: PyMacaron
-description: A python micro-service framework
+description: PyMacaron, a python microservice framework based on OpenAPI, Flask, Docker and Amazon AWS
 logo: logo.png
 show_downloads: "true"
