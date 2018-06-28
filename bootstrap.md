@@ -2,10 +2,8 @@
 title: PyMacaron Get Started HOWTO
 ---
 
-PyMacaron
-=========
-
-## Get Started
+Get Started
+===========
 
 ### Install PyMacaron
 

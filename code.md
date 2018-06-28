@@ -2,8 +2,8 @@
 title: Server and Endpoints
 ---
 
-PyMacaron
-=========
+Implementing your API
+=====================
 
 
 ## Server template

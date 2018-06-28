@@ -2,14 +2,12 @@
 title: PyMacaron Overview
 ---
 
-PyMacaron
-=========
+Overview
+========
 
 Python microservice framework based on Flask, OpenAPI, docker and AWS/beanstalk.
 
-## Overview
-
-### File structure of a PyMacaron microservice
+## File structure of a PyMacaron microservice
 
 A REST api microservice built with pymacaron has a directory tree
 looking like this:
