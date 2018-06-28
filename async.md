@@ -6,8 +6,6 @@ Asynchronous Execution
 ======================
 
 
-### Asynchronous task execution
-
 pymacaron comes with built-in support for asynchronous method execution
 by way of Celery and Redis. All you need to do is to add the 'with_async'
 key in 'pym-config.yaml':
