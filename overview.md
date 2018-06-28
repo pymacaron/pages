@@ -81,29 +81,6 @@ endpoints, catching errors, and providing optional database serialization for
 your api objects.
 
 
-### Testing strategy
-
-PyMacaron microservices are developed around two sets of tests:
-
-* Standard Python unitests that should be located under 'test/' and will be
-executed via nosetests at the start of the deployment pipeline.
-
-* Blackbox acceptance tests that target the api endpoints, and are executed via
-the tool
-[run_acceptance_tests](https://github.com/pymacaron/pymacaron/blob/master/bin/run_acceptance_tests)
-that comes packaged with pymacaron. Those acceptance tests should be
-located under the 'testaccept' directory, and it is recommended to name them
-after the endpoint they target. So one test file per tested API
-endpoint. Acceptance tests are designed to be executed against a running
-instance of the API server, be it a server you are running locally in a
-separate terminal, a docker container, or a live instance in Elastic Beanstalk.
-Those tests should therefore treat the API as a blackbox and focus solely on
-making API calls and testing the results. API calls should be made using test
-methods from [pymacaron-unit](https://github.com/pymacaron/pymacaron-unit). See
-[pymacaron-helloworld](https://github.com/pymacaron/pymacaron-helloworld/blob/master/testaccept/test_version.py)
-for an example of acceptance tests.
-
-
 ### Deployment pipeline
 
 PyMacaron microservices come with a ready-to-use deployment pipeline that packages
