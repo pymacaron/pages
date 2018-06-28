@@ -22,19 +22,15 @@
         <!-- Github star button -->
         <a class="github-button" href="https://github.com/ntkme/github-buttons" data-icon="octicon-star" data-size="large" aria-label="Star ntkme/github-buttons on GitHub">Star</a>
 
-        {% if site.logo %}
-          <img src="{{site.logo | relative_url}}" alt="Logo" />
-        {% endif %}
+        <img src="{{site.logo | relative_url}}" alt="Logo" />
 
-        <p>{{ site.description | default: site.github.project_tagline }}</p>
+        <p>A python microservice framework</p>
 
-        {% if site.show_downloads %}
         <ul>
           <li><a href="https://pypi.org/project/pymacaron/">View on <strong>PyPi</strong></a></li>
           <li><a href="https://github.com/pymacaron/">View On <strong>GitHub</strong></a></li>
           <li><a href="https://github.com/pymacaron/pymacaron/issues">Get <strong>Involved</strong></a></li>
         </ul>
-        {% endif %}
 
         <h2>Reference:</h2>
         <p>
@@ -54,12 +50,12 @@
       {{ content }}
 
       </section>
-      <footer>
-        {% if site.github.is_project_page %}
-        <p>Maintained by <a href="https://github.com/erwan-lemonnier">Erwan Lemonnier</a> and <a href="https://github.com/denizt">Deniz Turkoglu</a></p>
-        {% endif %}
-        <p><small>Hosted on GitHub Pages &mdash; Theme by <a href="https://github.com/orderedlist">orderedlist</a></small></p>
-      </footer>
+      <!-- <footer> -->
+      <!--   {% if site.github.is_project_page %} -->
+      <!--   <p>Maintained by <a href="https://github.com/erwan-lemonnier">Erwan Lemonnier</a> and <a href="https://github.com/denizt">Deniz Turkoglu</a></p> -->
+      <!--   {% endif %} -->
+      <!--   <p><small>Hosted on GitHub Pages &mdash; Theme by <a href="https://github.com/orderedlist">orderedlist</a></small></p> -->
+      <!-- </footer> -->
     </div>
     <script src="{{ "/assets/js/scale.fix.js" | relative_url }}"></script>
     {% if site.google_analytics %}
