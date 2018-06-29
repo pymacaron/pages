@@ -50,7 +50,7 @@ from pymacaron_core.swagger.apipool import ApiPool
 # be executed after the REST endpoint has
 # returned.
 @asynctask
-def send_email(title, body):
+def send_email(title):
     # Call 3-rd party emailing API pass
     pass
 
@@ -58,13 +58,20 @@ def send_email(title, body):
 def do_signup_user():
     do_stuff()
 
-    # Schedule a task sending this email and go on, not waiting for the result
-    send_email.fire('Welcome!', 'You now have an account')
+    # Schedule a task sending this email
+    # and go on, not waiting for the result
+    send_email('Welcome !')
 
     return ApiPool.myapi.model.Ok()
 ```
 
 That's all.
+
+### Known issues
+
+Arguments to the asynchronous methods should not be classes instances, since
+celery won't serialize them correctly when passing them to the asynchronous
+task. Dicts, arrays and base types work fine.
 
 ### Why and how?
 
