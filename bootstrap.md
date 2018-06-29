@@ -7,7 +7,7 @@ Get Started
 
 ### Install PyMacaron
 
-```
+```shell
 pipenv install pymacaron
 pipenv install pymacaron-aws
 pipenv install pymacaron-async
@@ -19,7 +19,7 @@ Bootstrap your project by cloning
 [pymacaron-helloworld](https://github.com/pymacaron/pymacaron-helloworld) and
 installing its dependencies:
 
-```bash
+```shell
 git clone git@github.com:pymacaron/pymacaron-helloworld.git
 cd pymacaron-helloworld
 pip install -r requirements.txt
@@ -27,7 +27,7 @@ pip install -r requirements.txt
 
 ### Start the server locally
 
-```bash
+```shell
 cd pymacaron-helloworld
 python server --port 8080
 ```
@@ -37,13 +37,13 @@ python server --port 8080
 You run acceptance tests against the above server (started in a separate
 terminal) like this:
 
-```bash
+```shell
 cd projectroot
 run_acceptance_tests --local
 ```
 
 ### Deploy
 
-```bash
+```shell
 deploy_pipeline --push --deploy
 ```
