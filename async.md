@@ -87,9 +87,9 @@ Unfortunately, this is not trivially done. Except with pymacaron-async :-)
 asynchronous execution capability to
 [pymacaron](https://github.com/pymacaron/pymacaron) servers, by spawning in the
 background a celery worker in which all your api modules are loaded. The celery
-worker loads your swagger api files in just the same way as for [pymacaron
-services](https://github.com/pymacaron/pymacaron/blob/master/pymacaron/__init__.py)
-object does, imports all the modules containing your endpoint implementations
-and emulates a Flask context including the current user's authentication
-details. That way, code executed asynchronously in a celery task sees exactly
-the same context as code executing synchronously in the endpoint method.
+worker loads your swagger api files in just the same way as the [pymacaron
+server](https://github.com/pymacaron/pymacaron/blob/master/pymacaron/__init__.py),
+imports all the modules containing your endpoint implementations and emulates a
+Flask context including the current user's authentication details. That way,
+code executed asynchronously in a celery task sees exactly the same context as
+code executing synchronously in the endpoint method.
