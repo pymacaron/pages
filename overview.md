@@ -68,6 +68,11 @@ of your API endpoints.
 
 [More details here](http://pymacaron.com/api.html).
 
+### JWT authentication
+
+You can add authentication around API endpoints in a PyMacaron microservice by
+using PyMacaron's built-in support for JWT tokens. [More details
+here](http://pymacaron.com/jwt.html).
 
 ## Pluggable features
 
