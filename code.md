@@ -5,8 +5,16 @@ title: Server and Endpoints
 Implementing your API
 =====================
 
+The only code you need to write to implement your pymacaron microservice is one of:
 
-## Server template
+* The 'server.py' file, which you can mostly keep unchanged from the one
+  provided in [pymacaron-helloworld](https://github.com/pymacaron/pymacaron-helloworld).
+
+* Your endpoint implementations located in python modules whose path are
+  specified in the yaml files of your API specifications.
+
+
+## Server code
 
 A standard PyMacaron 'server.py' looks like:
 
@@ -76,3 +84,8 @@ You start your server by going into the project's root directory and doing:
 ```bash
 python server.py --port 8080
 ```
+
+## Endpoint implementations
+
+See [pymacaron-helloworld](https://github.com/pymacaron/pymacaron-helloworld)
+for examples.
