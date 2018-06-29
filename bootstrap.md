@@ -13,10 +13,17 @@ pipenv install pymacaron-aws
 pipenv install pymacaron-async
 ```
 
-### Bootstraping example
+### Bootstraping
 
 Bootstrap your project by cloning
-[pymacaron-helloworld](https://github.com/pymacaron/pymacaron-helloworld).
+[pymacaron-helloworld](https://github.com/pymacaron/pymacaron-helloworld) and
+installing its dependencies:
+
+```bash
+git clone git@github.com:pymacaron/pymacaron-helloworld.git
+cd pymacaron-helloworld
+pip install -r requirements.txt
+```
 
 ### Start the server locally
 
