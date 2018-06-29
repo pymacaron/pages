@@ -139,7 +139,7 @@ registry.
 ### Configure AWS credentials
 
 In the Amazon AWS console, setup an IAM user with the name of your choice,
-<IAM_USER_NAME>, with the following rights:
+'IAM_USER_NAME', with the following rights:
 
 * AmazonEC2ReadOnlyAccess
 * AWSElasticBeanstalkFullAccess
@@ -166,11 +166,11 @@ Still in the IAM console, attach the custom policy to
 'aws-elasticbeanstalk-ec2-role' and 'aws-elasticbeanstalk-service-role'.
 
 Then, under the user's 'Security Crendetials' in the IAM console, create an
-access key for the user <IAM_USER_NAME> and note its 'Access key ID' and
+access key for the user 'IAM_USER_NAME' and note its 'Access key ID' and
 'Secret access key'.
 
 In a terminal on the host from which you will deploy the microservice,
-configure the aws profile of the <IAM_USER_NAME>:
+configure the aws profile of the 'IAM_USER_NAME':
 
 ```shell
 aws configure --profile <IAM_USER_NAME>
