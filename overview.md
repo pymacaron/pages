@@ -38,7 +38,8 @@ looking like this:
 └── test              # Unitests, executed with nosetests
 |   └── test_pep8.py
 |
-|   # Acceptance tests for your api, executed with run_acceptance_tests
+|   # Acceptance tests for your api,
+|   # executed with run_acceptance_tests
 └── testaccept
     ├── test_v1_user_login.py
     └── test_version.py
@@ -77,12 +78,13 @@ The following plugins may be used for additional features:
 
 ### Deployment pipeline
 
-PyMacaron microservices come with a ready-to-use deployment pipeline that
-packages the service as a docker image and deploys it on Amazon Elastic
-Beanstalk with little configuration required.
+PyMacaron microservices come with a [ready-to-use deployment
+pipeline](http://pymacaron.com/deploy.html) that packages the service as a
+docker image and deploys it on Amazon Elastic Beanstalk with little
+configuration required.
 
-[pymacaron-aws](https://github.com/pymacaron/pymacaron-aws) implements thlets you deploy a
-PyMacaron microservice as a docker container in Amazon Beanstalk. [More details
+This deployment pipeline is implemented in
+[pymacaron-aws](https://github.com/pymacaron/pymacaron-aws). [More details
 here](http://pymacaron.com/deploy.html).
 
 ### Asynchronous task execution
@@ -94,4 +96,5 @@ here](http://pymacaron.com/async.html).
 ### Blackbox testing framework
 
 [pymacaron-unit](https://github.com/pymacaron/pymacaron-unit) is a unittesting
-library to write blackbox tests targeting your API endpoints.
+library to write blackbox tests targeting your API endpoints. [More details
+here](http://pymacaron.com/testing.html).
