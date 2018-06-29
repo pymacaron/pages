@@ -69,6 +69,7 @@ def start(port=80, debug=False):
     # Optionally, publish the api specifications under
     # the route '/doc/<api-name>', so you may read them
     # in the Swagger-UI:
+
     # api.publish_apis()
 
     # Start the Flask app and serve all endpoints
