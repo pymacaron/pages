@@ -107,7 +107,8 @@ Beanstalk's way of receiving the docker configuration for an image relies on a
 S3 bucket to pass the configuration.
 
 In the amazon aws console, create a S3 bucket with a name of your choice
-<DOCKER_CFG_BUCKET>. In this bucket, create an empty directory called 'docker'.
+'DOCKER_CFG_BUCKET'. In this bucket, create an empty directory called
+'docker'.
 
 ### Docker registry credentials
 
