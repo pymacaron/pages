@@ -32,6 +32,8 @@ looking like this:
 |
 ├── server.py         # Your API server
 |
+├── requirements.txt  # Your python dependencies
+|
 └── test              # Unitests, executed with nosetests
 |   └── test_pep8.py
 |

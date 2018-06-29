@@ -5,8 +5,6 @@ title: PyMacaron Asynchronous Execution
 Asynchronous Execution
 ======================
 
-An extension of pymacaron
-
 [pymacaron-async](https://github.com/pymacaron/pymacaron-async) is a an
 extension of [pymacaron](http://pymacaron.com) that seamlessly adds
 asynchronous task execution based on celery/Redis to your API endpoints.
@@ -24,6 +22,12 @@ Then install 'pymacaron-async':
 
 ```bash
 pip install pymacaron-async
+```
+
+And add it to your microservice dependencies:
+
+```bash
+echo 'pymacaron-async' >> requirements.txt
 ```
 
 ### Usage
