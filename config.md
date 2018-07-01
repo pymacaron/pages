@@ -6,21 +6,10 @@ Configuration
 =============
 
 
-## pym-config.yaml - A global configuration object
+## pym-config.yaml
 
-All the configuration settings of a PymMacaron microservice
-should be located in the file 'pym-config.yaml' in the root of
-the microservice project:
-
-```
-.
-|
-├── pym-config.yaml
-```
-
-'pym-config.yaml' contains all PyMacaron settings, but we recommend that you
-also place your microservice settings there, including the name of any
-environment variable that are used by your microservice (See below).
+All configuration settings of a PymMacaron microservice should be placed in the
+file 'pym-config.yaml' in the root of the microservice project.
 
 As an example, here is the 'pym-config.yaml' from
 [pymacaron-helloworld](https://github.com/pymacaron/pymacaron-helloworld/blob/master/pym-config.yaml):
