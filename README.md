@@ -1,14 +1,14 @@
-## PyMacaron
+## What is PyMacaron?
 
-Python microservice framework based on Flask, OpenAPI, docker and AWS/beanstalk.
+A python microservice framework based on Flask, OpenAPI, docker and AWS/beanstalk.
 
-### From API design to live server
+### Microservices made easy
 
-Create and deploy a Flask-based microservice running a REST api in a Docker
-container on amazon AWS Elastic Beanstalk, in 4 steps:
+To create and deploy a Flask-based microservice running a REST api in a Docker
+container on amazon AWS Elastic Beanstalk, just do:
 
-* Fork and tweak PyMacaron Helloworld
-* Write a Swagger/OpenAPI specification for your api
+* Fork PyMacaron Helloworld
+* Write a Swagger/OpenAPI specification describing your api
 * Implement the API endpoints as python methods
 * Deploy
 
@@ -18,8 +18,7 @@ PyMacaron abstracts away all the scaffholding of structuring your Python app,
 defining routes, serializing/deserializing between json, Python objects and
 databases, containerizing your app and deploying it on Amazon.
 
-What's left in your codebase is the only thing that matters: the business
-logic.
+PyMacaron lets you focus on what matters: defining and implementing your API.
 
 ### The PyMacaron ecosystem
 

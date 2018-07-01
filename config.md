@@ -8,37 +8,75 @@ Configuration
 
 ## pym-config.yaml - A global configuration object
 
-The file 'pym-config.yaml' is the one place to find all configurable variables
-used by PyMacaron microservices.
+All the configuration settings of a PymMacaron microservice
+should be located in the file 'pym-config.yaml' in the root of
+the microservice project:
 
-The content of 'pym-config.yaml' is automatically loaded into a singleton
-object, accessible at any time by calling:
+```
+.
+|
+├── pym-config.yaml
+```
+
+'pym-config.yaml' contains all PyMacaron settings, but we recommend that you
+also place your microservice settings there, including the name of any
+environment variable that are used by your microservice (See below).
+
+As an example, here is the 'pym-config.yaml' from
+[pymacaron-helloworld](https://github.com/pymacaron/pymacaron-helloworld/blob/master/pym-config.yaml):
+
+```yaml
+name: hello
+docker_repo: <MYREPO>
+docker_bucket: <DOCKER_CFG_BUCKET>
+aws_user: <IAM_USER_NAME>
+aws_keypair: aws-eb
+aws_instance_type: t2.micro
+aws_cert_arn: <ARN_OF_SSL_CERTIFICATE>
+
+with_async: true
+
+jwt_issuer: api.helloworld.com
+jwt_audience: helloworldaudienceisgreat
+jwt_secret: PYM_JWT_SECRET
+live_host: helloworld.com
+
+env_secrets:
+  - PYM_JWT_SECRET
+```
+
+## Accessing config parameters
+
+The content of ‘pym-config.yaml’ is automatically loaded into a singleton
+object, accessible at any time by calling 'ge_config()':
 
 ```python
 from pymacaron.config import get_config
 
-# You can access all key-values defined in pym-config.yaml:
+# To access the key-values defined in pym-config.yaml:
 
 print get_config().live_host
 
-# And you can defined additional values of your own, though it is recommended
-# to add all static values directly in pym-config.yaml to avoid race
-# conditions at import time
-
-get_config().my_api_key = 'aeouaeouaeouaeouaeou'
-get_config().my_api_secret = '2348172438172364'
+conf = get_config()
+print(conf.this)
+print(conf.that)
 ```
 
-As described below, one attribute of 'pym-config.yaml' that pymacaron
-supports is 'env_secrets': its value should be a list of environment variables
-that will be automatically imported into Elastic Beanstalk and loaded at
-runtime into the server's Docker container. This is the recommended way of
-passing secrets into EC2 instances without commiting them inside your code.
+## Environment variables and secrets
+
+You may not want to write all settings into the configuration file.
+
+In particular, you should absolutely not commit secret keys into that file.
+
+The proper way to add secrets to the configuration file is to set them from
+environment variables and tell PyMacaron to import those environment variables
+into the configuration singleton by listing their name under the 'env_secrets'
+yaml array in 'pym-config.yaml'.
 
 All config attributes whose value matches one of the names listed in
-'env_secrets' will automatically have the content of the corresponding
+‘env_secrets’ will automatically have the content of the corresponding
 environment variable substituted to their value. This is very convenient when
-putting secrets in 'pym-config.yaml', as shown below:
+putting secrets in ‘pym-config.yaml’, as shown below:
 
 ```yaml
 # So, assuming you have set the environment variable MY_AWS_SECRET,
@@ -55,10 +93,22 @@ env_secrets:
 # the value of the environment variable MY_AWS_SECRET
 ```
 
-### pym-config.yaml - Expected key-values
+Access those environment variable in your code just like other settings:
 
-pymacaron expects the following attributes to be set in
-'pym-config.yaml':
+```python
+from pymacaron.config import get_config
+
+print(get_config().aws_secret_access_key)
+```
+
+When deploying your microservice, PyMacaron automatically imports all
+environment variables listed under 'env_secrets' into Elastic Beanstalk where
+they get loaded at runtime into the server’s Docker container.
+
+
+### PyMacaron settings
+
+PyMacaron expects the following key-values to be set in 'pym-config.yaml':
 
 * 'name' (MANDATORY): a short name for this project, also used when naming
   elastic beanstalk environments.
@@ -103,7 +153,3 @@ using
 
 * 'docker_bucket' (MANDATORY): name of the Amazon S3 bucket to which to upload
   the service's Amazon configuration.
-
-[Here is an
-example](https://github.com/pymacaron/pymacaron-helloworld/blob/master/pym-config.yaml)
-of 'pym-config.yaml'.
