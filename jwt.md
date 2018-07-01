@@ -20,11 +20,35 @@ TODO: how to set token in response of an authentication endpoint
 
 ### Requiring JWT authentication around an endpoint
 
-pymacaron allows you to add JWT token authentication around api
-endpoints.
+To add JWT token authentication around an api endpoint, set the
+'x-decorate-request' and 'x-decorate-server' attributes on the endpoint's
+definition in your OpenAPI file:
 
-TODO: how to add jwt auth in yaml file
-
+```yaml
+/profile/{user_id}:
+  get:
+    summary: Get a user's profile.
+    produces:
+      - application/json
+    x-bind-server: myserver.profile.do_get_profile
+    x-decorate-server: pymacaron.auth.requires_auth
+    x-decorate-request: pymacaron.auth.add_auth
+    parameters:
+      - in: path
+        name: user_id
+        description: User ID.
+        required: true
+        type: string
+    responses:
+      200:
+        description: User Profile.
+        schema:
+          $ref: '#/definitions/Profile'
+      default:
+        description: Error
+        schema:
+          $ref: '#/definitions/Error'
+```
 
 ### Passing the JWT token when calling an endpoint
 

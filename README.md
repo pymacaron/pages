@@ -52,3 +52,14 @@ you:
 * Automated validation of API data and parameters
 * A structured way of blackbox testing your API, integrated in the deploy pipeline
 * A production-grade stack (docker/gunicorn/Flask)
+
+### Requirements
+
+PyMacaron requires Python3.
+
+To deploy a pymacaron service, you will need access to a docker repository and
+an Amazon AWS account.
+
+### Credits
+
+PyMacaron was created and is maintained by [Erwan Lemonnier](https://github.com/erwan-lemonnier).
