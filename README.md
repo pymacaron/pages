@@ -1,22 +1,25 @@
 ## What is PyMacaron?
 
-A python microservice framework based on Flask, OpenAPI, docker and AWS/beanstalk.
+A python microservice framework based on Flask and Swagger, using docker for packaging and deployable on AWS/beanstalk.
 
 ### Microservices made easy
 
-To create and deploy a Flask-based microservice running a REST api in a Docker
-container on amazon AWS Elastic Beanstalk, just do:
+To create a Flask-based microservice running a REST api just do:
 
 * Fork PyMacaron Helloworld
-* Write a Swagger/OpenAPI specification describing your api
+* Add your API definition to the swagger file
 * Implement the API endpoints as python methods
-* Deploy
+* run 'python server.py'
+
+To deploy it as a docker container on Amazon Beanstalk, set a few configuration
+parameters and run 'deploy_pipeline'.
 
 BOOM! Your are live on Amazon AWS!
 
 PyMacaron abstracts away all the scaffholding of structuring your Python app,
 defining routes, serializing/deserializing between json, Python objects and
-databases, containerizing your app and deploying it on Amazon.
+databases, containerizing your app and deploying it on Amazon. It even supports
+asynchronous execution out of the box!
 
 PyMacaron lets you focus on what matters: defining and implementing your API.
 
@@ -35,7 +38,8 @@ microservice into a Docker container and deploy it to Amazon Elastic Beanstalk.
 blackbox acceptance tests against your live/dev microservice.
 
 [pymacaron-async](https://github.com/pymacaron/pymacaron-async) allows you to
-execute asynchronous tasks triggered by API calls, and
+execute asynchronous tasks triggered by API calls.
+
 [pymacaron-dynamodb](https://github.com/pymacaron/pymacaron-dynamodb)
 implements seamless serialisation between DynamoDB and API objects.
 
@@ -52,6 +56,7 @@ you:
 * Automated validation of API data and parameters
 * A structured way of blackbox testing your API, integrated in the deploy pipeline
 * A production-grade stack (docker/gunicorn/Flask)
+* Builtin support for monitoring your app with scoutapp.com
 
 ### Requirements
 
