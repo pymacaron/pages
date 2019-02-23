@@ -9,7 +9,9 @@ PyMacaron does not offer monitoring in itself, but is designed to support third
 party monitoring frameworks (such as scoutapp) and make it easy to monitor
 custom section of code.
 
-## Built-in support for scoutapp.com
+## Supported monitoring frameworks
+
+### scoutapp.com
 
 To activate pymacaron's builtin support for [scoutapp](https://scoutapp.com) just add the
 following key to your 'pym-config.yaml':
@@ -19,23 +21,27 @@ scout_key: <YOUR_SCOUT_API_KEY>
 ```
 
 PyMacaron will then automatically start the scout agent and monitor both your
-Flask endpoints and your eventual asynchronous Celery jobs.
+Flask endpoints and your eventual asynchronous Celery tasks.
 
-The name of your app in the scout dashboard will by default be 'PYMACARON_LIVE'
-for an app running on Amazon Beanstalk and 'PYMACARON_DEV' for an app running
-locally.
+## Naming your app
 
-To change those names, set the following keys in 'pym-config.yaml':
+You may want to set the display name of your pymacaron app in the 3d party monitoring
+framework. Do that by setting the following keys in 'pym-config.yaml':
 
 ```
 app_name_live: <NAME_OF_YOUR_APP_WHEN_RUNNING_LIVE>
 app_name_dev: <NAME_OF_YOUR_APP_WHEN_RUNNING_LOCALLY>
 ```
 
+Those leys are set by default to 'PYMACARON_LIVE' for an app running on Amazon Beanstalk
+and 'PYMACARON_DEV' elsewhere.
+
 ## Custom monitoring
 
-To monitor time spent in a given section of code, use the 'monitor' decorator
-provided by PyMacaron:
+Most 3d party monitoring frameworks support custom instrumentation to let you
+monitor specific sections of your code, in addition to the default monitoring
+they provide. PyMacaron hides away the specific mechanisms of monitoring
+frameworks behind its own 'monitor' method, used as follows:
 
 ```
 from pymacaron.monitor import monitor
