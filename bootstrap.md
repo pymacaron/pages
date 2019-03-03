@@ -9,6 +9,7 @@ Get Started
 
 ```shell
 pipenv install pymacaron
+pipenv install pymacaron-docker
 pipenv install pymacaron-aws
 pipenv install pymacaron-async
 ```
