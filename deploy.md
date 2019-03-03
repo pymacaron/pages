@@ -1,9 +1,47 @@
 ---
-title: PyMacaron Deployment
+title: PyMacaron Packaging & Deployment
 ---
 
-Deployment Pipeline
-===================
+Packaging with Docker
+=====================
+
+PyMacaron microservices are designed to be packaged as Docker images.
+[pymacaron-docker](https://github.com/pymacaron/pymacaron-docker) contains the tools
+required to build a Docker image containing and starting your microservice.
+
+### Prerequisites
+
+Install pymacaron-docker:
+
+```shell
+pip install pymacaron-docker
+```
+
+### Configuration
+
+Make sure that the following key pairs are set in your project's 'pym-config.yaml':
+
+```yaml
+name: <PROJECT NAME>
+docker_repo: <MYREPO>
+```
+
+Your microservice's Docker image will be named '<PROJECT NAME>-<VERSION>' where '<VERSION>'
+is a unique number generated based on the date and the git revision number of your project.
+
+### Login to your docker repository
+
+Using the same unix user with which you will later run the deployment pipeline, login to
+the Docker repository to which your microservice's image will be uploaded ('docker_repo' in 
+'pym-config.yaml'):
+
+```shell
+docker login
+```
+
+
+Deployment
+==========
 
 [pymacaron-aws](https://github.com/pymacaron/pymacaron-aws) is a deployment
 pipeline for PyMacaron microservices, deploying them as Docker containers on
