@@ -49,7 +49,7 @@ from pymacaron_core.swagger.apipool import ApiPool
 # executable method, called via celery, to
 # be executed after the REST endpoint has
 # returned.
-@asynctask
+@asynctask()
 def send_email(title):
     # Call 3-rd party emailing API pass
     pass
@@ -63,6 +63,13 @@ def do_signup_user():
     send_email('Welcome !')
 
     return ApiPool.myapi.model.Ok()
+```
+
+If you want to delay execution of the asynchronous task:
+
+```python
+# Delay 1min (60secs)
+@asyntask(delay=60)
 ```
 
 That's all.
