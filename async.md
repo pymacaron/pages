@@ -45,12 +45,11 @@ And make python methods asynchronous by decorating them as follows:
 from pymacaron_async import asynctask
 from pymacaron_core.swagger.apipool import ApiPool
 
-# Make send_email into an asynchronously
-# executable method, called via celery, to
-# be executed after the REST endpoint has
-# returned.
+# Make send_email_async() into an asynchronously
+# executable celery task, executed separately
+# a celery worker spawned by the PyMacaron framework
 @asynctask()
-def send_email(title):
+def send_email_async(title):
     # Call 3-rd party emailing API pass
     pass
 
@@ -60,10 +59,14 @@ def do_signup_user():
 
     # Schedule a task sending this email
     # and go on, not waiting for the result
-    send_email('Welcome !')
+    send_email_async('Welcome !')
 
     return ApiPool.myapi.model.Ok()
 ```
+
+NOTE: it is a good idea to have a naming convention for methods
+decorated with @asynctask, such as appending '_async' to their names.
+This will make your code easier to understand.
 
 If you want to delay execution of the asynchronous task:
 
@@ -74,19 +77,19 @@ If you want to delay execution of the asynchronous task:
 
 That's all.
 
-### Known issues
+### Limitations of argument types
 
 Arguments to the asynchronous methods should not be classes instances, since
 celery won't serialize them correctly when passing them to the asynchronous
-task. Dicts, arrays and base types work fine.
+task. Dicts, arrays and native python types work fine.
 
 ### Why and how?
 
 It is considered good behavior for a REST api endpoint to return as quickly as
 possible. Any long running task it needs to perform, such as image
 manipulation, 3rd party calls whose replies are not immediately needed, logging
-or analytics, should be executed after returning the HTTP response to the api
-caller.
+or analytics, should be executed asynchronously so as to not delay the HTTP response
+to the api caller.
 
 Unfortunately, this is not trivially done. Except with pymacaron-async :-)
 
@@ -97,6 +100,6 @@ background a celery worker in which all your api modules are loaded. The celery
 worker loads your swagger api files in just the same way as the [pymacaron
 server](https://github.com/pymacaron/pymacaron/blob/master/pymacaron/__init__.py),
 imports all the modules containing your endpoint implementations and emulates a
-Flask context including the current user's authentication details. That way,
+Flask context including the current user's authentication token. That way,
 code executed asynchronously in a celery task sees exactly the same context as
 code executing synchronously in the endpoint method.
