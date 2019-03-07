@@ -40,7 +40,7 @@ terminal) like this:
 
 ```shell
 cd projectroot
-run_acceptance_tests --local
+pymtest --local
 ```
 
 ### Deploy

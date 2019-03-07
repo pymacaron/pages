@@ -38,8 +38,7 @@ looking like this:
 └── test              # Unitests, executed with nosetests
 |   └── test_pep8.py
 |
-|   # Acceptance tests for your api,
-|   # executed with run_acceptance_tests
+|   # Acceptance tests for your api, executed with pymtest
 └── testaccept
     ├── test_v1_user_login.py
     └── test_version.py
