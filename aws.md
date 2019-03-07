@@ -1,75 +1,22 @@
 ---
-title: PyMacaron Packaging & Deployment
+title: Deploying PyMacaron on AWS Beanstalk
 ---
-
-Packaging with Docker
-=====================
-
-PyMacaron microservices are designed to be packaged as Docker images.
-[pymacaron-docker](https://github.com/pymacaron/pymacaron-docker) contains the tools
-required to build a Docker image containing and starting your microservice.
-
-### Prerequisites
-
-Install pymacaron-docker:
-
-```shell
-pip install pymacaron-docker
-```
-
-### Configuration
-
-Make sure that the following key pairs are set in your project's 'pym-config.yaml':
-
-```yaml
-name: <PROJECT NAME>
-docker_repo: <MYREPO>
-```
-
-Your microservice's Docker image will be named '<PROJECT NAME>-<VERSION>' where '<VERSION>'
-is a unique number generated based on the date and the git revision number of your project.
-
-### Login to your docker repository
-
-Using the same unix user with which you will later run the deployment pipeline, login to
-the Docker repository to which your microservice's image will be uploaded ('docker_repo' in 
-'pym-config.yaml'):
-
-```shell
-docker login
-```
-
 
 Deployment
 ==========
 
-[pymacaron-aws](https://github.com/pymacaron/pymacaron-aws) is a deployment
-pipeline for PyMacaron microservices, deploying them as Docker containers on
-amazon Elastic Beanstalk.
+[pymacaron-aws](https://github.com/pymacaron/pymacaron-aws) allows you to deploy
+your PyMacaron docker image on an Amazon Beanstalk environment using single-container
+instances and a best-practice auto-scalling setup.
+
 
 ## Deployment pipeline
 
-The directory
-[/bin](https://github.com/pymacaron/pymacaron-aws/tree/master/bin) contains
-the following tools for deploying pymacaron microservices:
-
-### deploy_pipeline
-
-[bin/deploy_pipeline](https://github.com/pymacaron/pymacaron-aws/blob/master/bin/deploy_pipeline)
-implements the deployment pipeline of pymacaron microservices, which consists
-of the following steps:
-
-1. Execute unittests under 'test/' with nosetests. Stop if tests fail.
-
-1. Generate a docker image in which the app starts inside gunicorn.
-
-1. Start this image in a local docker instance and run acceptance tests from
-   the 'testaccept/' directory against it. Stop if tests fail.
-
-1. Push that image to hub.docker.com.
+When deploying to Beanstalk, 'pymdeploy' goes through the following specific deployment
+steps:
 
 1. Start an Elastic Beanstalk environment running single-container docker
-   instances, and load the app image in it.
+   instances, and load the pymacaron docker image in it.
 
 1. Run the acceptance tests again, this time against the Beanstalk
    environment. Stop if tests fail.
@@ -78,41 +25,6 @@ of the following steps:
    deployment](http://docs.aws.amazon.com/elasticbeanstalk/latest/dg/using-features.CNAMESwap.html)).
    Your app is now live!
 
-1. Run acceptance tests again, this time against the live environment, as a
-   final validation.
-
-Voila! After a few minutes your microservice will be live, running as a docker
-container in Amazon Elastic Beanstalk, with all the goodies of auto-scalling
-and self-repair it offers :-)
-
-### Usage
-
-To execute the full deployment pipeline, do:
-
-```
-cd your-project-root
-deploy_pipeline --push --deploy
-```
-
-To execute only steps 1 to 4:
-
-```
-deploy_pipeline --push
-```
-
-To only push the image to hub.docker.com:
-
-```
-deploy_pipeline --no-build --push
-```
-
-To only deploy to Amazon:
-
-```
-deploy_pipeline --no-build --deploy
-```
-
-Easy!
 
 ## Prerequisites
 
@@ -129,15 +41,6 @@ You will need:
 Here are the steps you must follow before being able to deploy a pymacaron
 microservice to AWS.
 
-### Install Docker
-
-You need to be able to run a docker container locally on your development host,
-as part of the deployment pipeline for pymacaron microservices. Simply install
-docker engine as follows:
-
-```shell
-apt-get install docker docker-engine
-```
 
 ### Create a S3 bucket for docker config
 
@@ -148,19 +51,14 @@ In the amazon aws console, create a S3 bucket with a name of your choice
 'DOCKER_CFG_BUCKET'. In this bucket, create an empty directory called
 'docker'.
 
-### Docker registry credentials
+### Docker registry credentials in S3
 
-Here we assume that you are using 'hub.docker.com' as your image repository.
-
-From a terminal, login into docker hub, on the same host where you will run the
-deployment pipeline (to create the '~/.docker/config.json file'):
-
-```shell
-docker login
-```
+We assume that you have executed 'docker login' as part of setting up
+docker packaging for PyMacaron, and therefore have created the file
+'~/.docker/config.json file'.
 
 Find the <auth-token> and <email> in '~/.docker/config.json', and upload to
-'S3/klue-config/docker/dockercfg' the following file:
+S3 '<S3_DOCKER_CONFIG_BUCKET>/docker/dockercfg' the following file:
 
 ```shell
 {
@@ -173,6 +71,7 @@ Find the <auth-token> and <email> in '~/.docker/config.json', and upload to
 
 With that, Amazon will be able to fetch your microservice image from the docker
 registry.
+
 
 ### Configure AWS credentials
 
@@ -244,18 +143,16 @@ Calling 'eb use' marks this Beanstalk application as the current live instance
 of the micro-service, that will be swapped with the new instance upon every
 deploy.
 
-## Configure your microservice
 
-Your microservice project should contain in its root a file called
-'pym-config.yaml' containing at least the following key-value pairs for the
-deploy pipeline to work:
+## Setup in pym-config.yaml
+
+To be able to deploy against Beanstalk, the following key-values must be present
+in your project's pym-config.yaml:
 
 ```yaml
-name: <YOUR_NEW_SERVICE_NAME>
-docker_repo: <NAME_OF_YOUR_ROOT_REPO_ON_DOCKER.IO>
-docker_s3_bucket: <DOCKER_CFG_BUCKET>
-iam_user: <IAM_USER_NAME>
-ssh_keypair: <NAME_OF_SSH_KEYPAIR_TO_USE_IN_EC2>
+docker_bucket: <S3_DOCKER_CONFIG_BUCKET>    # Name of the S3 bucket containing the docker config for aws deploys
+aws_user: <IAM_USER_NAME>                   # Name of the aws IAM user to deploy as
+aws_keypair: <NAME_OF_SSH_KEYPAIR_TO_USE_IN_EC2>
 ```
 
 See [here](http://pymacaron.com/config.html) for details on 'pym-config.yaml'.
