@@ -4,7 +4,7 @@ A python microservice framework based on Flask and Swagger, using docker for pac
 
 ### Microservices made easy
 
-To create a Flask-based microservice running a REST api just do:
+Create a Flask-based microservice running your REST/json api by doing:
 
 * Fork PyMacaron Helloworld
 * Add your API definition to the swagger file
