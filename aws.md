@@ -76,10 +76,11 @@ registry.
 ### Configure AWS credentials
 
 In the Amazon AWS console, setup an IAM user with the name of your choice,
-'IAM_USER_NAME', with the following rights:
+'IAM_USER_NAME', with the following policies attached:
 
-* AmazonEC2ReadOnlyAccess
+* AmazonEC2FullAccess
 * AWSElasticBeanstalkFullAccess
+* AWSCertificateManagerReadOnly
 * And a custom policy giving this user access to the 'klue-config' S3 bucket:
 
 ```
