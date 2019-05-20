@@ -76,11 +76,15 @@ your docker image:
 
 ```shell
 $ cat Dockerfile.extra 
-# Install Chrome
-RUN wget -q -O - https://dl-ssl.google.com/linux/linux_signing_key.pub | sudo apt-key add - &&\
-sudo sh -c 'echo "deb http://dl.google.com/linux/chrome/deb/ stable main" >> /etc/apt/sources.list.d/google-chrome.list' &&\
-sudo apt-get update &&\
+# Install chrome and chromedriver
+RUN apt-get update && apt-get install wget
+RUN wget -q -O - https://dl-ssl.google.com/linux/linux_signing_key.pub | sudo apt-key add - && \
+    sudo sh -c 'echo "deb http://dl.google.com/linux/chrome/deb/ stable main" >> /etc/apt/sources.list.d/google-chrome.list' && \
+    sudo apt-get update && \
 sudo apt-get install -y google-chrome-stable
+RUN pip install selenium chromedriver-install
+RUN python -c "import chromedriver_install as cdi; print(cdi.install(file_directory='./lib/', verbose=True, chmod=True, overwrite=False, vers$
+
 ```
 
 Deployment
