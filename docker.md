@@ -87,6 +87,14 @@ RUN python -c "import chromedriver_install as cdi; print(cdi.install(file_direct
 
 ```
 
+### Using a different docker base image
+
+By default, Pymacaron docker images are built on top of the latest https://hub.docker.com/r/pymacaron/basepymacaron/base image. You can change that and use a custom base image by setting the config file parameter 'docker_base' in your project's 'pym-config.yaml', as in the example below:
+
+```yaml
+docker_base: pymacaron/scraper:190521-0957-29
+```
+
 Deployment
 ==========
 
