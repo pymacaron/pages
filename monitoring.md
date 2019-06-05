@@ -1,15 +1,21 @@
 ---
-title: Monitoring PyMacaron
+title: Logging and Monitoring with PyMacaron
 ---
 
-Monitoring PyMacaron
-====================
+Logging and Monitoring with PyMacaron
+=====================================
+
+## Logging
+
+### Cloudwatch 
+
+Pymacaron microservices are configured by default to store their logs in Cloudwatch. Logs can be browsed in the AWS console for Cloudwatch under the 'Logs' tab for the corresponding Beanstalk environment.
+
+## Supported monitoring frameworks
 
 PyMacaron does not offer monitoring in itself, but is designed to support third
 party monitoring frameworks (such as scoutapp) and make it easy to monitor
 custom section of code.
-
-## Supported monitoring frameworks
 
 ### scoutapp.com
 
@@ -36,7 +42,7 @@ app_name_dev: <NAME_OF_YOUR_APP_WHEN_RUNNING_LOCALLY>
 Those leys are set by default to 'PYMACARON_LIVE' for an app running on Amazon Beanstalk
 and 'PYMACARON_DEV' elsewhere.
 
-## Custom monitoring
+### Custom monitoring
 
 Most 3d party monitoring frameworks support custom instrumentation to let you
 monitor specific sections of your code, in addition to the default monitoring
