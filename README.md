@@ -12,7 +12,7 @@ Create a Flask-based microservice running your REST/json api by doing:
 * run 'python server.py'
 
 To deploy it as a docker container on Amazon Beanstalk, set a few configuration
-parameters and run 'deploy_pipeline'.
+parameters and run 'pymdeploy'.
 
 BOOM! Your are live on Amazon AWS!
 
