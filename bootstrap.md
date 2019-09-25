@@ -46,5 +46,5 @@ pymtest --local
 ### Deploy
 
 ```shell
-deploy_pipeline --push --deploy
+pymdeploy
 ```
