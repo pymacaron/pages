@@ -8,43 +8,6 @@ Overview
 [pymacaron](https://github.com/pymacaron/pymacaron) is a python microservice
 framework based on Flask, OpenAPI, docker and AWS/beanstalk.
 
-## File structure of a PyMacaron microservice
-
-A REST api microservice built with pymacaron has a directory tree
-looking like this:
-
-```
-.
-|   # apis/ contains the swagger specifications of your
-|   # microservice apis
-├── apis
-│   └── myservice.yaml
-│   └── sendgrid.yaml
-│   └── auth0.yaml
-|
-|   # Implementation of your api's endpoints
-├── myservice
-│   └── api.py
-│
-├── LICENSE           # Always have a licence :-)
-├── README.rst        # and a readme!
-|
-├── pym-config.yaml   # PyMacaron settings
-|
-├── server.py         # Your API server
-|
-├── requirements.txt  # Your python dependencies
-|
-└── test              # Unitests, executed with nosetests
-|   └── test_pep8.py
-|
-|   # Acceptance tests for your api, executed with pymtest
-└── testaccept
-    ├── test_v1_user_login.py
-    └── test_version.py
-
-```
-
 ## Core features
 
 ### API specifications
@@ -52,8 +15,8 @@ looking like this:
 At the core of pymacaron lies your API specifications, in the form of yaml
 files following the OpenAPI/swagger standard.
 
-Those API specifications describe every endpoint in your microservice API, the
-data they accept as parameters and return as results, and define all the
+Those API specifications describe every endpoint in your REST/JSON APIs, the
+data they accept as parameters and return as results, and all the
 objects used in your API.
 
 [pymacaron-core](https://github.com/pymacaron/pymacaron-core) extends the
@@ -102,3 +65,40 @@ here](http://pymacaron.com/async.html).
 [pymacaron-unit](https://github.com/pymacaron/pymacaron-unit) is a unittesting
 library to write blackbox tests targeting your API endpoints. [More details
 here](http://pymacaron.com/testing.html).
+
+## File structure of a PyMacaron microservice
+
+A REST api microservice built with pymacaron has a directory tree
+looking like this:
+
+```
+.
+|   # apis/ contains the swagger specifications of your
+|   # microservice apis
+├── apis
+│   └── myservice.yaml
+│   └── sendgrid.yaml
+│   └── auth0.yaml
+|
+|   # Implementation of your api's endpoints
+├── myservice
+│   └── api.py
+│
+├── LICENSE           # Always have a licence :-)
+├── README.rst        # and a readme!
+|
+├── pym-config.yaml   # PyMacaron settings
+|
+├── server.py         # Your API server
+|
+├── requirements.txt  # Your python dependencies
+|
+└── test              # Unitests, executed with nosetests
+|   └── test_pep8.py
+|
+|   # Acceptance tests for your api, executed with pymtest
+└── testaccept
+    ├── test_v1_user_login.py
+    └── test_version.py
+
+```
