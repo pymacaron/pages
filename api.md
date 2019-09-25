@@ -2,8 +2,8 @@
 title: PyMacaron API definition
 ---
 
-Defining an API
-===============
+API definition with swagger
+===========================
 
 PyMacaron uses the OpenAPI format to define microservice APIs, formerly known
 as the swagger format.
@@ -17,7 +17,7 @@ started. See for example [the OpenAPI
 specification](https://swagger.io/specification/) and these
 [examples](https://github.com/OAI/OpenAPI-Specification/tree/master/examples/v3.0).
 
-'pymacaron-core' extends the OpenAPI standard with a few special attributes to
+[pymacaron-core](https://github.com/pymacaron/pymacaron-core) extends the OpenAPI standard with a few special attributes to
 bind endpoints to python methods and serialise api objects to databases.
 
 ## Binding an API endpoint to a Python method
@@ -44,7 +44,7 @@ an example of a fictional login endpoint:
       200:
         description: API version
         schema:
-          $ref: '#/definitions/Welcome'
+          $ref: '#/definitions/TokenAndProfile'
       default:
         description: Error
         schema:
@@ -63,8 +63,9 @@ Your login method could look like:
             raise PyMacaronException("Login failed")
 
         # Get the class representing bravado-core Welcome objects
-        return ApiPool.login.model.Welcome(
-            message="Welcome!"
+        return ApiPool.login.model.TokenAndProfile(
+            token=generate_user_token(),
+            profile=get_user_profile(),
         )
 
 ```
