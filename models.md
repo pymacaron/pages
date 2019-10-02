@@ -17,7 +17,7 @@ objects are instances of [PyMacaronModel](https://github.com/pymacaron/pymacaron
 
 ## Defining a model with swagger
 
-PyMacaron models are defined in the swagger definition of the API. 
+PyMacaron models are defined in the swagger definition of the API.
 
 Here is for example the definition of the error object returned by PyMacaron:
 
@@ -60,7 +60,9 @@ PyMacaron models come with builtin methods:
 Assuming your api is defined in a swagger file called 'myapi.yaml', and contains the Error model defined above, you would instantiate an error like this:
 
 ```python
-error = ApiPool.myapi.model.Error(
+from pymacaron import get_model
+
+error = get_model('Error')(
     status=403,
     error='ACCESS_DENIED',
     user_message='You are not allowed to use the admin api',
@@ -87,8 +89,9 @@ del error['status']
 ### Convert to and from JSON
 
 ```python
+from pymacaron import get_model
+
 j = error.to_json()
-error = ApiPool.myapi.model.Error.from_json(j)
+
+error = get_model('Error').from_json(j)
 ```
-
-

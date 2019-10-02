@@ -180,6 +180,7 @@ Or you can do it on a per endpoint basis, using a decorator around the endpoint
 methods:
 
 ```python
+from pymacaron import get_model
 from pymacaron.crash import report_slow
 
 # Set the maximum call time for 'do_login_user' to 5 sec
@@ -187,5 +188,5 @@ from pymacaron.crash import report_slow
 @report_slow(max_ms=5000)
 def do_login_user(login_data):
     ...
-    return ApiPool.login.model.AuthToken(...)
+    return get_model('LoginResponse')(...)
 ```

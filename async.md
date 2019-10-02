@@ -43,7 +43,7 @@ And make python methods asynchronous by decorating them as follows:
 
 ```python
 from pymacaron_async import asynctask
-from pymacaron_core.swagger.apipool import ApiPool
+from pymacaron import get_model
 
 # Make send_email_async() into an asynchronously
 # executable celery task, executed separately
@@ -61,7 +61,7 @@ def do_signup_user():
     # and go on, not waiting for the result
     send_email_async('Welcome !')
 
-    return ApiPool.myapi.model.Ok()
+    return get_model('SignupResponse')(**some_attributes)
 ```
 
 NOTE: it is a good idea to have a naming convention for methods
