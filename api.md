@@ -55,15 +55,15 @@ Your login method could look like:
 
 ```python
 
-    from pymacaron_core.swagger.apipool import ApiPool
-    from pymacaron_core.exceptions import PyMacaronCoreException
+    from pymacaron import get_model
+    from pymacaron.exceptions import PyMacaronException
 
     def do_login(credentials):
         if not authenticate_user(credentials):
             raise PyMacaronException("Login failed")
 
         # Get the class representing bravado-core Welcome objects
-        return ApiPool.login.model.TokenAndProfile(
+        return get_model('LoginResponse')(
             token=generate_user_token(),
             profile=get_user_profile(),
         )
