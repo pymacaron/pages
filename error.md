@@ -37,7 +37,7 @@ class InvalidUserError(PyMacaronException):
 
 # An endpoint implementation...
 def do_login(userdata):
-    raise MyException("Sorry, we don't know you")
+    raise InvalidUserError("Sorry, we don't know you")
 ```
 
 ## Reporting non-fatal errors
