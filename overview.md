@@ -10,7 +10,7 @@ framework based on Flask, OpenAPI, docker and AWS/beanstalk.
 
 ## Core features
 
-### API specifications
+### OpenAPI specifications
 
 At the core of pymacaron lies your API specifications, in the form of yaml
 files following the OpenAPI/swagger standard.
@@ -19,16 +19,25 @@ Those API specifications describe every endpoint in your REST/JSON APIs, the
 data they accept as parameters and return as results, and all the
 objects used in your API.
 
-[pymacaron-core](https://github.com/pymacaron/pymacaron-core) extends the
-standard OpenAPI format to let you bind API endpoints to python methods, add
-JWT-based authentication to chosen endpoints, or handle serialisation of some
-data objects to databases.
+### Self-defined routes
 
-[pymacaron-core](https://github.com/pymacaron/pymacaron-core) uses your API
-specifications to start a Flask server and populate it with routes for each
-of your API endpoints.
+A PyMacaron server is basically a Flask server in which the routes defined
+in your OpenAPI specification are automatically added upon start.
+
+[pymacaron-core](https://github.com/pymacaron/pymacaron-core) extends the
+standard OpenAPI format to let you bind API endpoints to python methods and
+add JWT-based authentication to chosen endpoints
 
 [More details here](http://pymacaron.com/api.html).
+
+### Endpoints that take and return objects
+
+PyMacaron transparently converts OpenAPI schema objects into objects
+that are passed to the methods implementing endpoints and returned by them.
+Custom extensions of the OpenAPI specifications let you
+make thess objects inherit from your own classes, or become serializable to and from databases.
+
+[More details here](http://pymacaron.com/models.html).
 
 ### JWT authentication
 
