@@ -45,12 +45,11 @@ And make python methods asynchronous by decorating them as follows:
 from pymacaron_async import asynctask
 from pymacaron import get_model
 
-# Make send_email_async() into an asynchronously
-# executable celery task, executed separately
-# a celery worker spawned by the PyMacaron framework
+# Make send_email_async() into an asynchronous celery
+# task, executed separately in a celery worker
 @asynctask()
 def send_email_async(title):
-    # Call 3-rd party emailing API pass
+    # Call a 3-rd party email remarketing API
     pass
 
 # API endpoint, defined in your swagger API spec
@@ -68,7 +67,7 @@ NOTE: it is a good idea to have a naming convention for methods
 decorated with @asynctask, such as appending '_async' to their names.
 This will make your code easier to understand.
 
-If you want to delay execution of the asynchronous task:
+If you want to delay execution of an asynchronous task:
 
 ```python
 # Delay 1min (60secs)
@@ -79,9 +78,10 @@ That's all.
 
 ### Limitations of argument types
 
-Arguments to the asynchronous methods should not be classes instances, since
-celery won't serialize them correctly when passing them to the asynchronous
-task. Dicts, arrays and native python types work fine.
+Arguments to an asynchronous method can be dicts, arrays and native python types,
+as well as PyMacaron model instances that get transparently serialized to and from
+primitive types. Other class instances may not be passed as arguments since celery
+won't serialize them correctly. 
 
 ### Why and how?
 
