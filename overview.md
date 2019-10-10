@@ -6,7 +6,7 @@ Overview
 ========
 
 [pymacaron](https://github.com/pymacaron/pymacaron) is a python microservice
-framework based on Flask, OpenAPI, docker and AWS/beanstalk.
+framework based on Flask, OpenAPI, docker, AWS/beanstalk, Celery and Bravado-Core.
 
 PyMacaron aims at abstracting away all the scaffholding of setting up
 a Flask microservice, its routes, its deployment pipeline, etc. The only
