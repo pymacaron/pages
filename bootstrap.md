@@ -5,15 +5,6 @@ title: PyMacaron Get Started HOWTO
 Get Started
 ===========
 
-## Install PyMacaron
-
-```shell
-pipenv install pymacaron
-pipenv install pymacaron-docker
-pipenv install pymacaron-aws
-pipenv install pymacaron-async
-```
-
 ## Bootstraping
 
 Bootstrap your project by cloning
@@ -26,6 +17,15 @@ cd pymacaron-helloworld
 virtualenv -p python3 env-pymacaron
 source env-pymacaron/bin/activate
 pip3 install -r requirements.txt
+```
+
+## Or install PyMacaron yourself
+
+```shell
+pipenv install pymacaron
+pipenv install pymacaron-docker
+pipenv install pymacaron-aws
+pipenv install pymacaron-async
 ```
 
 ### Start the server locally
@@ -42,26 +42,6 @@ terminal) like this:
 
 ```shell
 $ cd pymacaron-helloworld
-$ pymtest --local
-```
-
-Run unittests the usual way:
-
-```shell
-$ nosetest -xv test/
-```
-
-### Deploy
-
-```shell
-$ pymdeploy
-```
-
-### Testing
-
-pymacaron-helloworld comes with tests of its default endpoints:
-
-```shell
 $ pymtest
 => Running locally against 127.0.0.1:8080
 => Will execute tests testaccept/
@@ -77,3 +57,19 @@ Ran 3 tests in 0.462s
 
 OK
 ```
+
+What happened above is that you just executed all the test files located under 'testaccept',
+which test various endpoints implemented in the Helloworld API.
+
+You can also run unittests the usual way:
+
+```shell
+$ nosetest -xv test/
+```
+
+### Deploy
+
+```shell
+$ pymdeploy
+```
+
