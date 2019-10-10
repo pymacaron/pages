@@ -76,6 +76,17 @@ To require JWT authentication on some of your API endpoints, you need to set the
 'x-decorate-request' and 'x-decorate-server' attributes for those endpoints, as
 described [here](jwt.html).
 
+## Builtin endpoints
+
+All PyMacaron services implement a few default endpoints defined in this [OpenAPI specification](https://github.com/pymacaron/pymacaron/blob/master/pymacaron/ping.yaml). Those are:
+
+* '/ping': Returns a json dictionary showing the status of the server. Convenient as a health-check endpoint. Does not require authentication.
+
+* '/version': Returns the version of the running server when deployed in a Docker container. Does not require authentication.
+
+* '/auth/version': Same as '/version' but requiring a valid JWT token in the HTTP Authorization header.
+
+
 ## Mandatory Error object
 
 PyMacaron requires that you define an Error object in your microservice API. It should
