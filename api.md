@@ -17,8 +17,19 @@ started. See for example [the OpenAPI
 specification](https://swagger.io/specification/) and these
 [examples](https://github.com/OAI/OpenAPI-Specification/tree/master/examples/v3.0).
 
-[pymacaron-core](https://github.com/pymacaron/pymacaron-core) extends the OpenAPI standard with a few special attributes to
-bind endpoints to python methods and serialise api objects to databases.
+## Custom OpenAPI attributes
+
+[pymacaron-core](https://github.com/pymacaron/pymacaron-core) extends the OpenAPI standard with the following custom attributes when implementing the OpenAPI specification (ie on the server):
+
+* 'x-parent: path.to.parent.class': let the model associated to an OpenAPI schema object inherit from a custom class. 
+* 'x-bind-server: path.to.endpoint.method': in an endpoint definition, tell which python method implements that endpoint.
+* 'x-decorate-server: pymacaron.auth.requires_auth': path to a decorator to wrap around this endpoint that will check for a valid JWT token.
+
+And when using the specification to generate an API client:
+
+* 'x-bind-client: name_of_client_method': name of the method calling this endpoint as a client.
+* 'x-decorate-request: pymacaron.auth.add_auth': path to a decorator that adds the authentication header around the client method.
+
 
 ## Binding an API endpoint to a Python method
 
