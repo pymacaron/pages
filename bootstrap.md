@@ -23,7 +23,9 @@ installing its dependencies:
 ```shell
 git clone git@github.com:pymacaron/pymacaron-helloworld.git
 cd pymacaron-helloworld
-pip install -r requirements.txt
+virtualenv -p python3 env-pymacaron
+source env-pymacaron/bin/activate
+pip3 install -r requirements.txt
 ```
 
 ### Start the server locally
@@ -39,8 +41,14 @@ You run acceptance tests against the above server (started in a separate
 terminal) like this:
 
 ```shell
-$ cd projectroot
+$ cd pymacaron-helloworld
 $ pymtest --local
+```
+
+Run unittests the usual way:
+
+```shell
+$ nosetest -xv test/
 ```
 
 ### Deploy
