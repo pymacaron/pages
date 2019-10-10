@@ -48,12 +48,15 @@ $ pymtest
 => Getting an access token for the test user
 => Using token: [..some jwt token..]
 => Running acceptance tests against 127.0.0.1:8080
-test_auth_version (test_version.Test) ... ok
-test_ping (test_version.Test) ... ok
-test_version (test_version.Test) ... ok
+test_async (test_async.Test) ... ok
+test_auth (test_auth.Test) ... ok
+test_auth_version (test_builtins.Test) ... ok
+test_ping (test_builtins.Test) ... ok
+test_version (test_builtins.Test) ... ok
+test_inheritance (test_inheritance.Test) ... ok
 
 ----------------------------------------------------------------------
-Ran 3 tests in 0.462s
+Ran 6 tests in 0.587s
 
 OK
 ```
