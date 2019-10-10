@@ -15,7 +15,13 @@ An API endpoint in PyMacaron is a method that takes an object whose attributes a
 in the api's swagger file, and return an other object also defined in the swagger file. Both
 objects are instances of [PyMacaronModel](https://github.com/pymacaron/pymacaron-core/blob/master/pymacaron_core/models.py).
 
+## Loading models
 
+PyMacaron models are dynamically generated when pymacaron loads the OpenAPI specifications. This happens when [starting the server](http://pymacaron.com/code.html):
+
+```python
+api.load_apis(path_apis)
+```
 
 ## Using model instances
 
@@ -27,16 +33,25 @@ The body of POST requests gets automatically converted into its corresponding Py
 
 ### Explicit construction
 
-Taking the [openapi definition used in 'pymacaron-helloworld'](https://github.com/pymacaron/pymacaron-helloworld/blob/master/apis/helloworld.yaml), you can explicitely instantiate an Error object with:
+Taking the [openapi definition used in 'pymacaron-helloworld'](https://github.com/pymacaron/pymacaron-helloworld/blob/master/apis/helloworld.yaml), you can explicitely instantiate an Error object with a delayed import:
 
 ```python
-from pymacaron import get_model
 
-error = get_model('Error')(
+import pymacaron.models
+
+error = pymacaron.models.Error(
     status=403,
     error='ACCESS_DENIED',
     error_description='You are not allowed to use the admin api',
 )
+```
+
+Or as an explicit import:
+
+```python
+from pymacaron.models import Error
+
+error = Error()
 ```
 
 ### Get and set attributes
@@ -61,11 +76,11 @@ del error['status']
 ### Convert to and from JSON
 
 ```python
-from pymacaron import get_model
+from pymacaron.models import Error
 
 j = error.to_json()
 
-error = get_model('Error').from_json(j)
+error = Error.from_json(j)
 ```
 
 ## Under the hood
@@ -95,6 +110,8 @@ inherit from a given python class. Here is an example taken from [pymacaron-hell
 And the Question class is defined as such:
 
 ```python
+# In the file helloworld.models
+
 class Question():
 
     def to_reply(self):
@@ -104,6 +121,8 @@ class Question():
 Now, any instance of 'Question' also has the method 'to_reply()':
 
 ```python
-q = get_model('Question')(question='who are you?')
+from pymacaron.models import Question
+
+q = Question(question='who are you?')
 print q.to_reply()
 ```
