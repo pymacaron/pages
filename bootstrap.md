@@ -5,7 +5,7 @@ title: PyMacaron Get Started HOWTO
 Get Started
 ===========
 
-## Bootstraping
+## Clone helloworld
 
 Bootstrap your project by cloning
 [pymacaron-helloworld](https://github.com/pymacaron/pymacaron-helloworld) and
@@ -19,7 +19,7 @@ source env-pymacaron/bin/activate
 pip3 install -r requirements.txt
 ```
 
-## Or install PyMacaron yourself
+## Or install PyMacaron by hand
 
 ```shell
 pipenv install pymacaron
@@ -28,14 +28,14 @@ pipenv install pymacaron-aws
 pipenv install pymacaron-async
 ```
 
-### Start the server locally
+## Start the server locally
 
 ```shell
 cd pymacaron-helloworld
 python server --port 8080
 ```
 
-### Run acceptance tests
+## Run acceptance tests
 
 You run acceptance tests against the above server (started in a separate
 terminal) like this:
@@ -70,7 +70,7 @@ You can also run unittests the usual way:
 $ nosetest -xv test/
 ```
 
-### Deploy
+## Deploy
 
 ```shell
 $ pymdeploy
