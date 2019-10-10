@@ -41,6 +41,8 @@ error = get_model('Error')(
 
 ### Get and set attributes
 
+All the attributes defined in the model's OpenAPI schema can be accessed or set as normal python instance attributes:
+
 Via attribute name:
 
 ```python
@@ -66,13 +68,42 @@ j = error.to_json()
 error = get_model('Error').from_json(j)
 ```
 
-### Update from dict
+## Under the hood
 
-For convenience, you may update multiple attributes at once in a model, based on key-values in a dictionary:
+PyMacaron uses [bravado-core](https://github.com/Yelp/bravado-core) models to map an OpenAPI schema object onto a Python object instance. A PyMacaron model instance is in fact a composite object that contains an instance of the corresponding bravado-core model instance, and redirects all set/get calls on attributes to it.
+
+## Using inheritance
+
+PyMacaron models become really powerful when used in combination with class inheritance.
+
+### Adding inheritance in OpenAPI
+
+Use the 'x-parent' declaration in the OpenAPI specification to automagically make all instances of a given schema object
+inherit from a given python class. Here is an example taken from [pymacaron-helloworld](https://github.com/pymacaron/pymacaron-helloworld/blob/master/apis/helloworld.yaml):
+
+```yaml
+  Question:
+    type: object
+    description: A question, inheriting from a custom class
+    x-parent: helloworld.models.Question
+    properties:
+      question:
+        type: string
+        description: A string
+```
+
+And the Question class is defined as such:
 
 ```python
-error.update_from_dict({
-    'error': 'THIS_OTHER_ERROR',
-    'error_description': 'blablabla',
-})
+class Question():
+
+    def to_reply(self):
+        return "You said: %s" % self.question
+```
+
+Now, any instance of 'Question' also has the method 'to_reply()':
+
+```python
+q = get_model('Question')(question='who are you?')
+print q.to_reply()
 ```
