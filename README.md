@@ -52,11 +52,10 @@ you:
 * A best practice auto-scalling setup on Elastic Beanstalk
 * Error handling and reporting around your api endpoints (via slack or email)
 * Endpoint authentication based on JWT tokens
-* Transparent mapping from API json data and DynamoDB to Python objects
+* Transparent mapping from OpenAPI schema objects to Python objects, including custom class inheritance
 * Automated validation of API data and parameters
 * A structured way of blackbox testing your API, integrated in the deploy pipeline
 * A production-grade stack (docker/gunicorn/Flask)
-* Builtin support for monitoring your app with scoutapp.com
 
 ### Requirements
 
