@@ -69,14 +69,3 @@ Ran 3 tests in 0.462s
 
 OK
 ```
-## Default endpoints
-
-All PyMacaron services implement a few default endpoints defined in this [OpenAPI specification](https://github.com/pymacaron/pymacaron/blob/master/pymacaron/ping.yaml). Those are:
-
-* '/ping': Returns a json dictionary showing the status of the server. Convenient as a health-check endpoint. Does not require authentication.
-
-* '/version': Returns the version of the running server when deployed in a Docker container. Does not require authentication.
-
-* '/auth/version': Same as '/version' but requiring a valid JWT token in the HTTP Authorization header.
-
-
