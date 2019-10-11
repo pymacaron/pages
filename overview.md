@@ -57,30 +57,43 @@ here](http://pymacaron.com/jwt.html).
 
 ## Pluggable features
 
-By itself, [pymacaron](https://github.com/pymacaron/pymacaron) only lets you
-build a REST microservice and run it as a local server.
+### Core features
 
-The following plugins may be used for additional features:
+By itself, [pymacaron](https://github.com/pymacaron/pymacaron) only lets you
+build a REST microservice and run it as a local server. 
+Pymacaron uses [pymacaron-core](https://github.com/pymacaron/pymacaron-core) to take an
+OpenAPI yaml specification and start a Flask app implementing it. Pymacaron-core is in fact a thin layer on top of [bravado-core](https://github.com/Yelp/bravado-core).
+
+Other pymacaron features are available as plugins:
 
 ### Deployment pipeline
 
 PyMacaron microservices come with a [deployment
 pipeline](http://pymacaron.com/deploy.html) that packages the service as a
-docker image and deploys it on Amazon Elastic Beanstalk with little
-configuration required.
+docker image (using [pymacaron-docker](https://github.com/pymacaron/pymacaron-docker)) and deploys it on Amazon Elastic Beanstalk (using [pymacaron-aws](https://github.com/pymacaron/pymacaron-aws)).
 
-This deployment pipeline is implemented in
-[pymacaron-aws](https://github.com/pymacaron/pymacaron-aws). [More details
+[More details
 here](http://pymacaron.com/deploy.html).
 
 ### Asynchronous task execution
 
 [pymacaron-async](https://github.com/pymacaron/pymacaron-async) adds support
-for asynchronous task execution to your API endpoints. [More details
+for asynchronous task execution to your API endpoints, based on Celery and Redis.
+
+[More details
 here](http://pymacaron.com/async.html).
 
 ### Blackbox testing framework
 
 [pymacaron-unit](https://github.com/pymacaron/pymacaron-unit) is a unittesting
-library to write blackbox tests targeting your API endpoints. [More details
+library to write blackbox tests targeting your API endpoints.
+
+[More details
 here](http://pymacaron.com/testing.html).
+
+### Object persistence
+
+Object persistence is achieved by letting PyMacaron models inherit from a class that handles persistence and serialisation.
+[pymacaron-dynamodb](https://github.com/pymacaron/pymacaron-dynamodb)
+does that between Amazon's DynamoDB and PyMacaron models.
+
