@@ -31,26 +31,59 @@ PyMacaron models come with builtin methods:
 
 The body of POST requests gets automatically converted into its corresponding PyMacaron model when passed to its endpoint method.
 
+Assuming a POST method with the following definition:
+
+```yaml
+  /v1/ask:
+    post:
+      summary: Ask a question
+      parameters:
+        - in: body
+          name: body
+          description: A question
+          required: true
+          schema:
+            $ref: "#/definitions/Question"
+      produces:
+        - application/json
+      x-bind-server: helloworld.api.do_ask
+      responses:
+        '200':
+          description: Hello message
+          schema:
+            $ref: '#/definitions/Hello'
+```
+
+The python method 'helloworld.api.do_ask' would look take a 'Question' instance as first argument:
+
+```python
+def do_ask(question):
+    """Tada! question is an instance of the Question model"""
+    assert isinstance(question, PyMacaronModel)
+```
+
 ### Explicit construction
 
-Taking the [openapi definition used in 'pymacaron-helloworld'](https://github.com/pymacaron/pymacaron-helloworld/blob/master/apis/helloworld.yaml), you can explicitely instantiate an Error object with a delayed import:
+Taking the [openapi definition used in 'pymacaron-helloworld'](https://github.com/pymacaron/pymacaron-helloworld/blob/master/apis/helloworld.yaml), you can either import the Error model, after having loaded the
+OpenAPI files:
 
 ```python
 
-import pymacaron.models
+from pymacaron.models import Error
 
-error = pymacaron.models.Error(
+error = Error(
     status=403,
     error='ACCESS_DENIED',
     error_description='You are not allowed to use the admin api',
 )
 ```
 
-Or as an explicit import:
+Or use the 'get_model()' method for a more dynamic approach:
 
 ```python
-from pymacaron.models import Error
+from pymacaron.models import get_model
 
+Error = get_model('Error')
 error = Error()
 ```
 
