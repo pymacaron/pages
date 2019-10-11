@@ -60,6 +60,7 @@ The python method 'helloworld.api.do_ask' would look take a 'Question' instance 
 def do_ask(question):
     """Tada! question is an instance of the Question model"""
     assert isinstance(question, PyMacaronModel)
+    assert question.get_model_name() == 'Question'
 ```
 
 ### Explicit construction
@@ -114,6 +115,14 @@ from pymacaron.models import Error
 j = error.to_json()
 
 error = Error.from_json(j)
+```
+
+### Model name
+
+Get the model's name, aka the name of the OpenAPI schema object this model is based on:
+
+```python
+error.get_model_name()
 ```
 
 ## Under the hood
