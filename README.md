@@ -27,18 +27,17 @@ PyMacaron lets you focus on what matters: defining and implementing your API.
 
 [pymacaron](https://github.com/pymacaron/pymacaron) uses
 [pymacaron-core](https://github.com/pymacaron/pymacaron-core) which takes a
-swagger/OpenAPI yaml specification and starts a Flask app implementing it.
+swagger/OpenAPI yaml specification and starts a Flask app implementing it. [pymacaron-core](https://github.com/pymacaron/pymacaron-core) glues together Flask and [bravado-core](https://github.com/Yelp/bravado-core).
 
-[pymacaron](https://github.com/pymacaron/pymacaron) uses
-[pymacaron-aws](https://github.com/pymacaron/pymacaron-aws) to package the
+[pymacaron](https://github.com/pymacaron/pymacaron) uses [pymacaron-docker](https://github.com/pymacaron/pymacaron-docker) and [pymacaron-aws](https://github.com/pymacaron/pymacaron-aws) to package the
 microservice into a Docker container and deploy it to Amazon Elastic Beanstalk.
 
 [pymacaron](https://github.com/pymacaron/pymacaron) uses
 [pymacaron-unit](https://github.com/pymacaron/pymacaron-unit) to execute
-blackbox acceptance tests against your live/dev microservice.
+blackbox acceptance tests against your microservice's API.
 
 [pymacaron-async](https://github.com/pymacaron/pymacaron-async) allows you to
-execute asynchronous tasks triggered by API calls.
+execute asynchronous tasks triggered by API calls, based on Celery and Redis.
 
 [pymacaron-dynamodb](https://github.com/pymacaron/pymacaron-dynamodb)
 implements seamless serialisation between DynamoDB and API objects.
