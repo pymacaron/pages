@@ -1,5 +1,5 @@
 ---
-title: Deploying PyMacaron on AWS Beanstalk
+title: Deploying PyMacaron on Google Cloud Run
 ---
 
 Deployment to Google Cloud Run
