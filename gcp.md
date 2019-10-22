@@ -11,6 +11,15 @@ microservices to Cloud Run using the
 [pymacaron-gcp](https://github.com/pymacaron/pymacaron-gcp).
 
 
+## LIMITATION: async execution not supported!
+
+Note that Google Cloud Run only supports microservices that have no activity
+outside request handling. See ['Avoiding background
+activities'](https://cloud.google.com/run/docs/tips).
+
+Therefore PyMacaron's async task implementation based on Celery/Redis will not
+work with Cloud Run.
+
 ## Deployment pipeline
 
 When deploying to Cloud Run, 'pymdeploy' goes through the following specific
