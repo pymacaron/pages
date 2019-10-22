@@ -36,7 +36,7 @@ you:
 * Automated validation of API data and parameters
 * A structured way of blackbox testing your API, integrated in the deploy pipeline
 * A production-grade stack (docker/gunicorn/Flask)
-* A best practice auto-scalling setup on Elastic Beanstalk
+* A zero-configuration (almost) deployment pipeline against AWS Beanstalk or Google Cloud Run
 
 ### Requirements
 
