@@ -25,6 +25,7 @@ pip3 install -r requirements.txt
 pipenv install pymacaron
 pipenv install pymacaron-docker
 pipenv install pymacaron-aws
+pipenv install pymacaron-gcp
 pipenv install pymacaron-async
 ```
 
@@ -75,4 +76,3 @@ $ nosetest -xv test/
 ```shell
 $ pymdeploy
 ```
-

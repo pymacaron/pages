@@ -5,8 +5,6 @@ title: PyMacaron Error Handling
 Error Handling
 ==============
 
-Python microservice framework based on Flask, OpenAPI, docker and AWS/beanstalk.
-
 ## Default Error model in PyMacaron APIs
 
 If an endpoint raises an exception, it will be caught by pymacaron and returned

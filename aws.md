@@ -2,8 +2,8 @@
 title: Deploying PyMacaron on AWS Beanstalk
 ---
 
-Deployment
-==========
+Deployment to Amazon Beanstalk
+==============================
 
 [pymacaron-aws](https://github.com/pymacaron/pymacaron-aws) allows you to deploy
 your PyMacaron docker image on an Amazon Beanstalk environment using single-container
@@ -151,6 +151,7 @@ To be able to deploy against Beanstalk, the following key-values must be present
 in your project's pym-config.yaml:
 
 ```yaml
+deploy_target: aws-beanstalk
 docker_bucket: <S3_DOCKER_CONFIG_BUCKET>    # Name of the S3 bucket containing the docker config for aws deploys
 aws_user: <IAM_USER_NAME>                   # Name of the aws IAM user to deploy as
 aws_keypair: <NAME_OF_SSH_KEYPAIR_TO_USE_IN_EC2>

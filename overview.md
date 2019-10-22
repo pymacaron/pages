@@ -6,11 +6,12 @@ Overview
 ========
 
 [pymacaron](https://github.com/pymacaron/pymacaron) is a python microservice
-framework based on Flask, OpenAPI, docker, AWS/beanstalk, Celery and Bravado-Core.
+framework based on Flask, OpenAPI, docker, AWS/beanstalk or GCP/Cloud Run,
+Celery and Bravado-Core.
 
-PyMacaron aims at abstracting away all the scaffholding of setting up
-a Flask microservice, its routes, its deployment pipeline, etc. The only
-code you should have to write are the the python methods bound to every API endpoint.
+PyMacaron aims at abstracting away all the scaffholding of setting up a Flask
+microservice, its routes, its deployment pipeline, etc. The only code you
+should have to write are the the python methods bound to every API endpoint.
 
 ## Core features
 
@@ -44,7 +45,7 @@ later returns an other PyMacaron Model instance, that will be serialized to json
 
 Those objects are defined in your OpenAPI specification, in the form of ['schema objects'](https://github.com/OAI/OpenAPI-Specification/blob/master/versions/3.0.0.md#schemaObject).
 
-PyMacaron also extends the OpenAPI standard to let you assign a parent class to schema objects, or 
+PyMacaron also extends the OpenAPI standard to let you assign a parent class to schema objects, or
 to make them serializable to/from a database.
 
 [More details here](http://pymacaron.com/models.html).
@@ -60,7 +61,7 @@ here](http://pymacaron.com/jwt.html).
 ### Core features
 
 By itself, [pymacaron](https://github.com/pymacaron/pymacaron) only lets you
-build a REST microservice and run it as a local server. 
+build a REST microservice and run it as a local server.
 Pymacaron uses [pymacaron-core](https://github.com/pymacaron/pymacaron-core) to take an
 OpenAPI yaml specification and start a Flask app implementing it. Pymacaron-core is in fact a thin layer on top of [bravado-core](https://github.com/Yelp/bravado-core).
 
@@ -70,10 +71,9 @@ Other pymacaron features are available as plugins:
 
 PyMacaron microservices come with a [deployment
 pipeline](http://pymacaron.com/deploy.html) that packages the service as a
-docker image (using [pymacaron-docker](https://github.com/pymacaron/pymacaron-docker)) and deploys it on Amazon Elastic Beanstalk (using [pymacaron-aws](https://github.com/pymacaron/pymacaron-aws)).
-
-[More details
-here](http://pymacaron.com/deploy.html).
+[docker image](http://pymacaron.com/docker.html) and deploys it to [Amazon
+Beanstalk](http://pymacaron.com/aws.html) or [Google Cloud
+Run](http://pymacaron.com/gcp.html).
 
 ### Asynchronous task execution
 
@@ -93,7 +93,7 @@ here](http://pymacaron.com/testing.html).
 
 ### Object persistence
 
-Object persistence is achieved by letting PyMacaron models inherit from a class that handles persistence and serialisation.
-[pymacaron-dynamodb](https://github.com/pymacaron/pymacaron-dynamodb)
-does that between Amazon's DynamoDB and PyMacaron models.
-
+Object persistence is achieved by letting PyMacaron models inherit from a class
+that handles persistence and serialisation.
+[pymacaron-dynamodb](https://github.com/pymacaron/pymacaron-dynamodb) does that
+between Amazon's DynamoDB and PyMacaron models.

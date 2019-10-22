@@ -1,5 +1,5 @@
 ---
-title: PyMacaron Packaging & Deployment
+title: PyMacaron Packaging with Docker
 ---
 
 Packaging with Docker
@@ -75,7 +75,7 @@ For example, adding the following Dockerfile.extra in your project will have Chr
 your docker image:
 
 ```shell
-$ cat Dockerfile.extra 
+$ cat Dockerfile.extra
 # Install chrome and chromedriver
 RUN apt-get update && apt-get install wget
 RUN wget -q -O - https://dl-ssl.google.com/linux/linux_signing_key.pub | sudo apt-key add - && \

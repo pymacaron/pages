@@ -7,9 +7,16 @@ Logging and Monitoring with PyMacaron
 
 ## Logging
 
-### Cloudwatch 
+### Cloudwatch on AWS
 
-Pymacaron microservices are configured by default to store their logs in Cloudwatch. Logs can be browsed in the AWS console for Cloudwatch under the 'Logs' tab for the corresponding Beanstalk environment.
+Pymacaron microservices that are deployed to AWS are configured by default to
+store their logs in Cloudwatch. Logs can be browsed in the AWS console for
+Cloudwatch under the 'Logs' tab for the corresponding Beanstalk environment.
+
+### Stackdriver on GCP
+
+Pymacaron microservices that are deployed to Cloud Run are automatically
+integrated with Stackdriver. Logs can be browsed in the Stackdriver console.
 
 ## Supported monitoring frameworks
 
