@@ -12,16 +12,39 @@ All configuration settings of a PymMacaron microservice should be placed in the
 file 'pym-config.yaml' in the root of the microservice project.
 
 As an example, here is the 'pym-config.yaml' from
-[pymacaron-helloworld](https://github.com/pymacaron/pymacaron-helloworld/blob/master/pym-config.yaml):
+[pymacaron-helloworld](https://github.com/pymacaron/pymacaron-helloworld/blob/master/pym-config.yaml),
+deploying a microservice to AWS Beanstalk:
 
 ```yaml
 name: hello
 docker_repo: <MYREPO>
 docker_bucket: <DOCKER_CFG_BUCKET>
+deploy_target: aws-beanstalk
 aws_user: <IAM_USER_NAME>
 aws_keypair: aws-eb
 aws_instance_type: t2.micro
 aws_cert_arn: <ARN_OF_SSL_CERTIFICATE>
+
+with_async: true
+
+jwt_issuer: api.helloworld.com
+jwt_audience: helloworldaudienceisgreat
+jwt_secret: PYM_JWT_SECRET
+live_host: helloworld.com
+
+env_secrets:
+  - PYM_JWT_SECRET
+```
+
+The same microservice would be deployed to Google Cloud Run with this config:
+
+```yaml
+name: hello
+docker_repo: <NAME_OF_CLOUD_RUN_SERVICE>  # Ex: helloworld
+deploy_target: gcp-cloud-run
+gcp_region: <GOOGLE_CLOUD_REGION>         # Ex: europe-west1
+gcp_memory: <MAX_CONTAINER_MEMORY>        # Ex: 1G
+gcp_request_concurrency: <CONCURRENCY>    # Ex: 80
 
 with_async: true
 
@@ -118,6 +141,22 @@ PyMacaron expects the following key-values to be set in 'pym-config.yaml':
 
 * 'default_user_id' (OPTIONAL): the default user ID to use when generating JWT
   tokens.
+
+The following variables are needed if you want to deploy to Google Cloud Run
+using
+[pymacaron-gcp](https://github.com/pymacaron/pymacaron-gcp):
+
+* 'deploy_target' (MANDATORY): set to 'gcp-cloud-run'
+
+* 'docker_repo' (MANDATORY): name of the Cloud Run service in which your
+  container will run.
+
+* 'gcp_region' (MANDATORY): the GCP region to deploy to (ex: europe-west1)
+
+* 'gcp_memory' (MANDATORY): amount of memory to give to the container (ex: 1G)
+
+* 'gcp_request_concurrency' (MANDATORY): number of simultaneous requests your
+  container can handle before having to trigger autoscaling.
 
 The following variables are needed if you want to deploy to Elastic Beanstalk
 using
