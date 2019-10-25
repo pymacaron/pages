@@ -148,7 +148,7 @@ using
 
 * 'deploy_target' (MANDATORY): set to 'gcp-cloud-run'
 
-* 'docker_repo' (MANDATORY): name of the Cloud Run service in which your
+* 'docker_repo' (MANDATORY): Name of the Cloud Run service in which your
   container will run.
 
 * 'gcp_region' (MANDATORY): the GCP region to deploy to (ex: europe-west1)
@@ -157,6 +157,14 @@ using
 
 * 'gcp_request_concurrency' (MANDATORY): number of simultaneous requests your
   container can handle before having to trigger autoscaling.
+
+The following variables are needed if you want to deploy to Google Cloud Run
+using
+[pymacaron-gcp](https://github.com/pymacaron/pymacaron-gcp):
+
+* 'deploy_target' (MANDATORY): set to 'gke'
+
+* 'docker_repo' (MANDATORY): ID of the Google Cloud project you are deploying into.
 
 The following variables are needed if you want to deploy to Elastic Beanstalk
 using

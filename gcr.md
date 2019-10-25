@@ -11,7 +11,9 @@ microservices to Cloud Run using the
 [pymacaron-gcp](https://github.com/pymacaron/pymacaron-gcp).
 
 
-## LIMITATION: async execution not supported!
+## LIMITATIONS!
+
+### Async execution not supported!
 
 Note that Google Cloud Run only supports microservices that have no activity
 outside request handling. See ['Avoiding background
@@ -19,6 +21,11 @@ activities'](https://cloud.google.com/run/docs/tips).
 
 Therefore PyMacaron's async task implementation based on Celery/Redis will not
 work with Cloud Run.
+
+### HTTPS not default!
+
+Cloud Run services have both there HTTP and HTTPS ports exposed. It's the
+developer's responsibility to actively redirect all HTTP requests to HTTPS.
 
 ## Deployment pipeline
 
@@ -34,7 +41,7 @@ deployment steps:
    whose name is the service's name suffixed with '-live'.
 
 'pymgcp' sets up the Google Run service based on the parameters defined in
-'pym-config.yaml'.  It is however up to you to map the live environment to a
+'pym-config.yaml'. It is however up to you to map the live environment to a
 custom domain of your choice.
 
 
@@ -48,6 +55,8 @@ You will need to have:
 
 * Run 'gcloud auth configure-docker'
 
+* Installed 'pymacaron-gcp': ```pip install pymacaron-gcp```
+
 
 ## Configuration in pym-config.yaml
 
@@ -55,6 +64,7 @@ To be able to deploy against Cloud Run, the following key-values must be
 present in your project's pym-config.yaml:
 
 ```yaml
+docker_repo: <PROJECT_ID>      # The ID of your gcp project
 deploy_target: gcp-cloud-run
 gcp_region: europe-west1       # Set to the gcp region your service should be deployed to
 gcp_memory: 1G                 # Max memory granted to one container

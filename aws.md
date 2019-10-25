@@ -21,8 +21,9 @@ steps:
 1. Run the acceptance tests again, this time against the Beanstalk
    environment. Stop if tests fail.
 
-1. Swap the new Beanstalk environment with the current live one ([blue/green
-   deployment](http://docs.aws.amazon.com/elasticbeanstalk/latest/dg/using-features.CNAMESwap.html)).
+1. Swap the new Beanstalk environment with the current live one with a
+   [blue/green
+   deployment](http://docs.aws.amazon.com/elasticbeanstalk/latest/dg/using-features.CNAMESwap.html).
    Your app is now live!
 
 

@@ -15,8 +15,9 @@ Cloudwatch under the 'Logs' tab for the corresponding Beanstalk environment.
 
 ### Stackdriver on GCP
 
-Pymacaron microservices that are deployed to Cloud Run are automatically
-integrated with Stackdriver. Logs can be browsed in the Stackdriver console.
+Pymacaron microservices that are deployed to Cloud Run and GKE are
+automatically integrated with Stackdriver. Logs can be browsed in the
+Stackdriver console.
 
 ## Supported monitoring frameworks
 
@@ -26,8 +27,8 @@ custom section of code.
 
 ### scoutapp.com
 
-To activate pymacaron's builtin support for [scoutapp](https://scoutapp.com) just add the
-following key to your 'pym-config.yaml':
+To activate pymacaron's builtin support for [scoutapp](https://scoutapp.com)
+just add the following key to your 'pym-config.yaml':
 
 ```
 scout_key: <YOUR_SCOUT_API_KEY>
@@ -38,16 +39,17 @@ Flask endpoints and your eventual asynchronous Celery tasks.
 
 ## Naming your app
 
-You may want to set the display name of your pymacaron app in the 3d party monitoring
-framework. Do that by setting the following keys in 'pym-config.yaml':
+You may want to set the display name of your pymacaron app in the 3d party
+monitoring framework. Do that by setting the following keys in
+'pym-config.yaml':
 
 ```
 app_name_live: <NAME_OF_YOUR_APP_WHEN_RUNNING_LIVE>
 app_name_dev: <NAME_OF_YOUR_APP_WHEN_RUNNING_LOCALLY>
 ```
 
-Those leys are set by default to 'PYMACARON_LIVE' for an app running on Amazon Beanstalk
-and 'PYMACARON_DEV' elsewhere.
+Those leys are set by default to 'PYMACARON_LIVE' for an app running on Amazon
+Beanstalk and 'PYMACARON_DEV' elsewhere.
 
 ### Custom monitoring
 

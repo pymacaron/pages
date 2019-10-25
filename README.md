@@ -1,7 +1,7 @@
 ## What is PyMacaron?
 
 A python microservice framework based on Flask and Swagger, using docker for
-packaging and deployable on AWS/beanstalk or GCP/Cloud RUN.
+packaging and deployable on AWS/beanstalk, GKE or Google Cloud RUN.
 
 ### Microservices made easy
 
