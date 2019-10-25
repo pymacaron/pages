@@ -54,7 +54,8 @@ Assuming a POST method with the following definition:
             $ref: '#/definitions/Hello'
 ```
 
-The python method 'helloworld.api.do_ask' would look take a 'Question' instance as first argument:
+The python method 'helloworld.api.do_ask' will receive a 'Question' instance as
+first argument:
 
 ```python
 def do_ask(question):
@@ -65,11 +66,13 @@ def do_ask(question):
 
 ### Explicit construction
 
-Taking the [openapi definition used in 'pymacaron-helloworld'](https://github.com/pymacaron/pymacaron-helloworld/blob/master/apis/helloworld.yaml), you can either import the Error model, after having loaded the
-OpenAPI files:
+Taking the [openapi definition used in
+'pymacaron-helloworld'](https://github.com/pymacaron/pymacaron-helloworld/blob/master/apis/helloworld.yaml),
+you can either import a model after having loaded the OpenAPI files:
 
 ```python
 
+# Example: importing the Error model
 from pymacaron.models import Error
 
 error = Error(
@@ -85,12 +88,13 @@ Or use the 'get_model()' method for a more dynamic approach:
 from pymacaron.models import get_model
 
 Error = get_model('Error')
-error = Error()
+error = Error(status=403)
 ```
 
 ### Get and set attributes
 
-All the attributes defined in the model's OpenAPI schema can be accessed or set as normal python instance attributes:
+All the attributes defined in the model's OpenAPI schema can be accessed or set
+as normal python instance attributes:
 
 Via attribute name:
 
@@ -119,7 +123,8 @@ error = Error.from_json(j)
 
 ### Model name
 
-Get the model's name, aka the name of the OpenAPI schema object this model is based on:
+Get the model's name, aka the name of the OpenAPI schema object this model is
+based on:
 
 ```python
 error.get_model_name()
@@ -127,16 +132,23 @@ error.get_model_name()
 
 ## Under the hood
 
-PyMacaron uses [bravado-core](https://github.com/Yelp/bravado-core) models to map an OpenAPI schema object onto a Python object instance. A PyMacaron model instance is in fact a composite object that contains an instance of the corresponding bravado-core model instance, and redirects all set/get calls on attributes to it.
+PyMacaron uses [bravado-core](https://github.com/Yelp/bravado-core) models to
+map an OpenAPI schema object onto a Python object instance. A PyMacaron model
+instance is in fact a composite object that contains an instance of the
+corresponding bravado-core model instance, and redirects all set/get calls on
+attributes to it.
 
 ## Using inheritance
 
-PyMacaron models become really powerful when used in combination with class inheritance.
+PyMacaron models become really powerful when used in combination with class
+inheritance.
 
 ### Adding inheritance in OpenAPI
 
-Use the 'x-parent' declaration in the OpenAPI specification to automagically make all instances of a given schema object
-inherit from a given python class. Here is an example taken from [pymacaron-helloworld](https://github.com/pymacaron/pymacaron-helloworld/blob/master/apis/helloworld.yaml):
+Use the 'x-parent' declaration in the OpenAPI specification to automagically
+make all instances of a given schema object inherit from a given python
+class. Here is an example taken from
+[pymacaron-helloworld](https://github.com/pymacaron/pymacaron-helloworld/blob/master/apis/helloworld.yaml):
 
 ```yaml
   Question:

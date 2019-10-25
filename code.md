@@ -5,13 +5,13 @@ title: Server and Endpoints
 Implementing your API
 =====================
 
-The only code you need to write to implement your pymacaron microservice is one of:
+The only code you need to write to implement your pymacaron microservice is:
 
-* The 'server.py' file, which you can mostly keep unchanged from the one
-  provided in [pymacaron-helloworld](https://github.com/pymacaron/pymacaron-helloworld).
+* A 'server.py' file, which you can mostly copy/paste unchanged from
+  [pymacaron-helloworld/server.py](https://github.com/pymacaron/pymacaron-helloworld/blob/master/server.py)
 
-* Your endpoint implementations located in python modules whose path are
-  specified in the yaml files of your API specifications.
+* One method for every endpoint, located in python modules whose path are
+  specified in the OpenAPI specifications via the 'x-bind-server' attribute.
 
 
 ## Server code

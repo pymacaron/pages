@@ -118,7 +118,7 @@ environment variables listed under 'env_secrets' into Elastic Beanstalk where
 they get loaded at runtime into the server’s Docker container.
 
 
-### PyMacaron settings
+## Reference
 
 PyMacaron expects the following key-values to be set in 'pym-config.yaml':
 
