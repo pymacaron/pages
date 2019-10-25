@@ -12,10 +12,10 @@ Create a Flask-based microservice running your REST/json api by doing:
 * Implement the API endpoints as python methods
 * run 'python server.py'
 
-To deploy it as a docker container on Amazon Beanstalk or Google Cloud Run, set
-a few configuration parameters and run 'pymdeploy'.
+To deploy it as a docker container to AWS or GCP, set a few configuration
+parameters and run 'pymdeploy'.
 
-BOOM! Your are live!
+BOOM! Your are live in the cloud!
 
 PyMacaron abstracts away all the scaffholding of structuring your Python app,
 defining routes, serializing/deserializing between json, Python objects and
