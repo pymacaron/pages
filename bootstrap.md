@@ -43,8 +43,7 @@ terminal) like this:
 
 ```shell
 $ cd pymacaron-helloworld
-$ pymtest
-=> Running locally against 127.0.0.1:8080
+$ pymtest --gen-token
 => Will execute tests testaccept/
 => Getting an access token for the test user
 => Using token: [..some jwt token..]
