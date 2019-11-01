@@ -43,7 +43,7 @@ terminal) like this:
 
 ```shell
 $ cd pymacaron-helloworld
-$ pymtest --gen-token
+$ pymtest
 => Will execute tests testaccept/
 => Getting an access token for the test user
 => Using token: [..some jwt token..]
