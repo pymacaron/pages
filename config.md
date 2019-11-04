@@ -30,7 +30,7 @@ with_async: true
 jwt_issuer: api.helloworld.com
 jwt_audience: helloworldaudienceisgreat
 jwt_secret: PYM_JWT_SECRET
-live_host: helloworld.com
+live_url: https://helloworld.com
 
 env_secrets:
   - PYM_JWT_SECRET
@@ -51,7 +51,7 @@ with_async: true
 jwt_issuer: api.helloworld.com
 jwt_audience: helloworldaudienceisgreat
 jwt_secret: PYM_JWT_SECRET
-live_host: helloworld.com
+live_url: https://helloworld.com
 
 env_secrets:
   - PYM_JWT_SECRET
@@ -67,7 +67,7 @@ from pymacaron.config import get_config
 
 # To access the key-values defined in pym-config.yaml:
 
-print get_config().live_host
+print get_config().live_url
 
 conf = get_config()
 print(conf.this)
@@ -125,7 +125,7 @@ PyMacaron expects the following key-values to be set in 'pym-config.yaml':
 * 'name' (MANDATORY): a short name for this project, also used when naming
   elastic beanstalk environments.
 
-* 'live_host' (MANDATORY): url to the live server running this api.
+* 'live_url' (MANDATORY): url to the live server running this api.
 
 * 'env_secrets' (OPTIONAL): names of environment variables that will be passed
   to Elastic Beanstalk and loaded at runtime into the Docker container in
