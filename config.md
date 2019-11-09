@@ -74,6 +74,13 @@ print(conf.this)
 print(conf.that)
 ```
 
+## Special environment variables
+
+Pymacaron's runtime, when executing in a container, has the following environment variables set:
+
+* 'PYM_ENV': Set to 'dev' if running the container locally within 'pymtest'. If on AWS beanstalk, PYM_DEV is set to 'live'. If on Google Cloud Run or Kubernetes Engine, PYM_DEV is set to the application's name followed by '-staging' or '-live' (for example 'helloworld-staging' or 'helloworld-live').
+
+
 ## Environment variables and secrets
 
 You may not want to write all settings into the configuration file.
