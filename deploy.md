@@ -63,3 +63,7 @@ See [instructions here](http://pymacaron.com/gke.html).
 
 See [instructions here](http://pymacaron.com/gcr.html).
 
+## Identifying runtime inside the app
+
+How can a pymacaron service know if it is being executed inside a container started by 'pymtest', or in a staging respectively live deployment on google cloud or aws? By looking at the 'PYM_ENV' environment variable, documented [here](http://pymacaron.com/config.html).
+
