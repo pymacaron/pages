@@ -22,12 +22,12 @@ Stackdriver console.
 ## Supported monitoring frameworks
 
 PyMacaron does not offer monitoring in itself, but is designed to support third
-party monitoring frameworks (such as scoutapp) and make it easy to monitor
+party monitoring frameworks (such as scoutapm) and make it easy to monitor
 custom section of code.
 
-### scoutapp.com
+### scoutapm.com
 
-To activate pymacaron's builtin support for [scoutapp](https://scoutapp.com)
+To activate pymacaron's builtin support for [scoutapm](https://scoutapm.com)
 just add the following key to your 'pym-config.yaml':
 
 ```
@@ -36,6 +36,13 @@ scout_key: <YOUR_SCOUT_API_KEY>
 
 PyMacaron will then automatically start the scout agent and monitor both your
 Flask endpoints and your eventual asynchronous Celery tasks.
+
+To preinstall the scout core agent (and hence save significant time when starting your container), add
+a 'Dockerfile.extra' file to your project, containing:
+
+```
+RUN /bin/bash -c "source /pym/virtenv/bin/activate; pip install scout-apm asgiref; core-agent-manager download"
+```
 
 ## Naming your app
 
