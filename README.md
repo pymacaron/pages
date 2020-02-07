@@ -45,6 +45,10 @@ PyMacaron requires Python3.
 To deploy a pymacaron service, you will need access to a docker repository and
 an Amazon AWS or Google GCP account.
 
+### Watch the video!
+
+https://youtu.be/bf_dO4Gge8A
+
 ### Credits
 
 PyMacaron was created and is maintained by [Erwan Lemonnier](https://github.com/erwan-lemonnier).
