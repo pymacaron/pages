@@ -47,7 +47,7 @@ an Amazon AWS or Google GCP account.
 
 ### Watch the video!
 
-https://youtu.be/bf_dO4Gge8A
+[https://youtu.be/bf_dO4Gge8A](https://youtu.be/bf_dO4Gge8A)
 
 ### Credits
 
