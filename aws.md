@@ -82,6 +82,7 @@ In the Amazon AWS console, setup an IAM user with the name of your choice,
 * AmazonEC2FullAccess
 * AWSElasticBeanstalkFullAccess
 * AWSCertificateManagerReadOnly
+* AmazonRoute53FullAccess
 * And a custom policy giving this user access to the 'klue-config' S3 bucket:
 
 ```
@@ -156,6 +157,7 @@ deploy_target: aws-beanstalk
 docker_bucket: <S3_DOCKER_CONFIG_BUCKET>    # Name of the S3 bucket containing the docker config for aws deploys
 aws_user: <IAM_USER_NAME>                   # Name of the aws IAM user to deploy as
 aws_keypair: <NAME_OF_SSH_KEYPAIR_TO_USE_IN_EC2>
+aws_zone_id: <ZONE_ID>                      # The Route53 zone ID of the zone containing the record for the live_host
 ```
 
 See [here](http://pymacaron.com/config.html) for details on 'pym-config.yaml'.
