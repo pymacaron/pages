@@ -8,7 +8,7 @@ packaging and deployable on AWS/beanstalk, GKE or Google Cloud RUN.
 The core parts of PyMacaron are very similar to [FastAPI](https://fastapi.tiangolo.com/): they are both built around a mapping between openapi specifications on
 one side and python objects and api endpoints on the other side. FastAPI takes a code-first approach, in which openapi
 specs are generated from the server implementation, while PyMacaron takes the opposite approach and generates server and objects
-based on the specification. PyMacaron is based on gunicorn and flask, while FastAPI uses the superior uvicorn and ASGI design.
+based on the specification. PyMacaron is based on gunicorn and flask, while FastAPI uses the superior uvicorn and ASGI design. PyMacaron relies on Bravado for object generation, while FastAPI uses Pydantic and python 3.6 dictionaries, which are significantly faster and less memory hungry.
 
 PyMacaron underwent active development between 2016 and 2019, and started at a time when FastAPI did not exist as an alternative.
 
