@@ -3,6 +3,17 @@
 A python microservice framework based on Flask and Swagger, using docker for
 packaging and deployable on AWS/beanstalk, GKE or Google Cloud RUN.
 
+### WARNING - Parts of PyMacaron will soon become deprecated
+
+The core parts of PyMacaron are very similar to [FastAPI](https://fastapi.tiangolo.com/): they are both built around a mapping between openapi specifications on
+one side and python objects and api endpoints on the other side. FastAPI takes a code-first approach, in which openapi
+specs are generated from the server implementation, while PyMacaron takes the opposite approach and generates server and objects
+based on the specification. PyMacaron is based on gunicorn and flask, while FastAPI uses the superior uvicorn and ASGI design.
+
+PyMacaron underwent active development between 2016 and 2019, and started at a time when FastAPI did not exist as an alternative.
+
+The author of PyMacaron now believes that FastAPI presents a more mature and robust approach and will therefore deprecate [pymacaron-core](https://github.com/pymacaron/pymacaron-core), stop using Bravado and refactor [pymacaron](https://github.com/pymacaron/pymacaron) to use FastAPI as its underlying implementation.
+
 ### Microservices made easy
 
 Create a Flask-based microservice running your REST/json api by doing:
