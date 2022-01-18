@@ -1,6 +1,6 @@
 ## Pymacaron: a Python microservive framework
 
-A python microservice framework based on Swagger and Flask, using docker for
+A python microservice framework based on swagger, pydantic and Flask, using docker for
 packaging and deployable onto AWS/beanstalk, GKE or Google Cloud RUN.
 
 ### Pymacaron vs FastAPI
