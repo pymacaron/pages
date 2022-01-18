@@ -146,14 +146,6 @@ definitions:
       lng:
         description: Longitude
         type: number
-  Question:
-    type: object
-    description: A question, inheriting from a custom class
-    x-parent: helloworld.models.Question
-    properties:
-      question:
-        type: string
-        description: A string
 ```
 
 Assuming 'my.module' contains:
