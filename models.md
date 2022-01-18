@@ -130,10 +130,22 @@ Pymacaron models can be declared to inherit from a custom class. This allows you
 
 Use the 'x-parent' declaration in the OpenAPI specification to automagically
 make all instances of a given schema object inherit from a given python
-class. Here is an example taken from
-[pymacaron-helloworld](https://github.com/pymacaron/pymacaron-helloworld/blob/master/apis/helloworld.yaml):
+class. Let's make 'MyLocation' inherit from a custom class:
 
 ```yaml
+definitions:
+
+  MyLocation:
+    type: object
+    description: The user's location
+    x-parent: my.module.LocationLogic
+    properties:
+      lat:
+        description: Latitude
+        type: number
+      lng:
+        description: Longitude
+        type: number
   Question:
     type: object
     description: A question, inheriting from a custom class
@@ -144,22 +156,21 @@ class. Here is an example taken from
         description: A string
 ```
 
-And the Question class is defined as such:
+Assuming 'my.module' contains:
 
 ```python
-# In the file helloworld.models
+class LocationLogic():
 
-class Question():
-
-    def to_reply(self):
-        return "You said: %s" % self.question
+    def get_google_maps_url(self):
+        url = do_smart_things_to_generate_this_url()
+        return url
 ```
 
-Now, instances of 'Question' also have the method 'to_reply()':
+Now, instances of 'MyLocation' also have the method 'get_google_maps_url()':
 
 ```python
-from pymacaron.models import Question
+from pymacaron import apipool
 
-q = Question(question='who are you?')
-print q.to_reply()
+l = apipool.MyLocation(lat=1, lng=2)
+l.get_google_maps_url()
 ```
