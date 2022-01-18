@@ -1,124 +1,100 @@
 ---
-title: PyMacaron models as instances of api objects
+title: Pymacaron models to instantiate API objects
 ---
 
-PyMacaron models
+Pymacaron models
 ================
 
-## API endpoints take and return objects
+## Swagger models as python objects
 
-The core design principle of PyMacaron is to abstract all the scaffholding of setting up
-a Flask microservice, its routes, its deployment pipeline, etc. The only code you should
-have to write is the actual implementation of each endpoint.
+Pymacaron generates an object class for every object defined in the API's swagger specifications.
 
-An API endpoint in PyMacaron is a method that takes an object whose attributes are defined
-in the api's swagger file, and return an other object also defined in the swagger file. Both
-objects are instances of [PyMacaronModel](https://github.com/pymacaron/pymacaron-core/blob/master/pymacaron_core/models.py).
+Pymacaron objects are declared using [pydantic](https://pydantic-docs.helpmanual.io/) and [PymacaronBaseModel](https://github.com/pymacaron/pymacaron-core/blob/master/pymacaron_core/models.py). Pymacaron objects can be accessed via 'pymacaron.apipool'.
 
-## Loading models
-
-PyMacaron models are dynamically generated when pymacaron loads the OpenAPI specifications. This happens when [starting the server](http://pymacaron.com/code.html):
-
-```python
-api.load_apis(path_apis)
-```
-
-## Using model instances
-
-PyMacaron models come with builtin methods:
-
-### Implicit construction
-
-The body of POST requests gets automatically converted into its corresponding PyMacaron model when passed to its endpoint method.
-
-Assuming a POST method with the following definition:
+Assuming the file 'apis/myapi.yaml' contains:
 
 ```yaml
-  /v1/ask:
-    post:
-      summary: Ask a question
-      parameters:
-        - in: body
-          name: body
-          description: A question
-          required: true
-          schema:
-            $ref: "#/definitions/Question"
-      produces:
-        - application/json
-      x-bind-server: helloworld.api.do_ask
-      responses:
-        '200':
-          description: Hello message
-          schema:
-            $ref: '#/definitions/Hello'
+definitions:
+
+  MyLocation:
+    type: object
+    description: The user's location
+    properties:
+      lat:
+        description: Latitude
+        type: number
+      lng:
+        description: Longitude
+        type: number
 ```
 
-The python method 'helloworld.api.do_ask' will receive a 'Question' instance as
-first argument:
+Pymacaron generates the python class 'MyLocation':
 
 ```python
-def do_ask(question):
-    """Tada! question is an instance of the Question model"""
-    assert isinstance(question, PyMacaronModel)
-    assert question.get_model_name() == 'Question'
+from pydantic import BaseModel
+from pymacaron.model import PymacaronBaseModel
+class MyLocation(PymacaronBaseModel, BaseModel):
+    lat: Optional[float] = None
+    lng: Optional[float] = None
 ```
 
-### Explicit construction
-
-Taking the [openapi definition used in
-'pymacaron-helloworld'](https://github.com/pymacaron/pymacaron-helloworld/blob/master/apis/helloworld.yaml),
-you can either import a model after having loaded the OpenAPI files:
+And it can be instantiated as follows:
 
 ```python
+from pymacaron import apipool
 
-# Example: importing the Error model
-from pymacaron.models import Error
+l0 = apipool.myapi.MyLocation()
+l1 = apipool.myapi.MyLocation(lat=1, lng=2)
+```
 
-error = Error(
-    status=403,
-    error='ACCESS_DENIED',
-    error_description='You are not allowed to use the admin api',
+## Swagger types to python types
+
+Pymacaron handles mapping swagger types to their python analog.
+
+## Loading swagger models
+
+When [starting the server](http://pymacaron.com/code.html), the method 'load_apis()' is called. It finds the project's swagger specifications and generates their object classes and Flask routes.
+
+```python
+api.load_apis(path='apis/')
+```
+
+You can also explicitely generate pymacaron classes from a swagger file by doing:
+
+```python
+from pymacaron import apipool
+
+apipool.load_swagger(
+    'myapi',
+    'apis/myapi.yaml',
 )
+
+# class MyLocation now exists:
+l = apipool.myapi.MyLocation(lat=1, lng=2)
 ```
 
-Or use the 'get_model()' method for a more dynamic approach:
+## Using pymacaron models
+
+Pymacaron models inherit all [pydantic builtin methods](https://pydantic-docs.helpmanual.io/). Additional methods are also inherited from PymacaronBaseModel (see below). Object attributes are set as usual:
 
 ```python
-from pymacaron.models import get_model
+from pymacaron import apipool
 
-Error = get_model('Error')
-error = Error(status=403)
+l = apipool.MyLocation(lat=1, lng=2)
+l.lat = 3
+s = l.lat + l.ng
 ```
 
-### Get and set attributes
-
-All the attributes defined in the model's OpenAPI schema can be accessed or set
-as normal python instance attributes:
-
-Via attribute name:
+### Convert to and from JSON dictionaries
 
 ```python
-error.status = 500
-print error.status
-```
+from pymacaron import apipool
 
-Or via the dictionary interface:
+l = apipool.MyLocation(lat=1, lng=2)
 
-```python
-error['status'] = 500
-print error['status']
-del error['status']
-```
+j = l.to_json()
 
-### Convert to and from JSON
-
-```python
-from pymacaron.models import Error
-
-j = error.to_json()
-
-error = Error.from_json(j)
+l = apipool.MyLocation.from_json(j)
 ```
 
 ### Model name
@@ -127,23 +103,30 @@ Get the model's name, aka the name of the OpenAPI schema object this model is
 based on:
 
 ```python
-error.get_model_name()
+>>> l.get_model_name()
+'MyLocation'
 ```
+
+### Model properties
+
+Get a list of the model's properties:
+
+```python
+>>> l.get_model_properties()
+['lat', 'lng']
+```
+
 
 ## Under the hood
 
-PyMacaron uses [bravado-core](https://github.com/Yelp/bravado-core) models to
-map an OpenAPI schema object onto a Python object instance. A PyMacaron model
-instance is in fact a composite object that contains an instance of the
-corresponding bravado-core model instance, and redirects all set/get calls on
-attributes to it.
+If your swagger specifications is located at 'apis/myapi.yaml', pymacaron generates and loads the file 'apis/myapi_models.py'. Look at this file to
+see how pymacaron models are declared.
 
 ## Using inheritance
 
-PyMacaron models become really powerful when used in combination with class
-inheritance.
+Pymacaron models can be declared to inherit from a custom class. This allows you to add arbitrary methods to any API object, a very convenient pattern when building more advanced server logic.
 
-### Adding inheritance in OpenAPI
+### Adding inheritance in swagger
 
 Use the 'x-parent' declaration in the OpenAPI specification to automagically
 make all instances of a given schema object inherit from a given python
@@ -172,7 +155,7 @@ class Question():
         return "You said: %s" % self.question
 ```
 
-Now, any instance of 'Question' also has the method 'to_reply()':
+Now, instances of 'Question' also have the method 'to_reply()':
 
 ```python
 from pymacaron.models import Question
