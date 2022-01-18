@@ -5,26 +5,19 @@ title: PyMacaron Error Handling
 Error Handling
 ==============
 
-## Default Error model in PyMacaron APIs
+Pymacaron expects endpoints to return a valid apipool model instance on success, and to raise a PyMacaronException upon failure.
 
-If an endpoint raises an exception, it will be caught by pymacaron and returned
-to the caller in the form of an Error json object looking like:
+## PyMacaronExceptions
 
-```json
-{
-    "error": "INVALID_USER",                      # Code identifying this error
-    "error_description": "DB entry not found",    # Developer friendly explanation
-    "user_message": "Sorry, we don't know you",   # User friendly explanation (optional)
-    "status": 401                                 # Same as the response's HTTP status code
-}
-```
+A PyMacaronException has the attributes:
 
-## Custom errors
+* 'code': an uppercase string code for this exception
+* 'status': the numerical HTTP status code for this error
+* 'user_message': (optional) a user-friendly error message
 
-You can create your own errors by subclassing the class
-[PyMacaronException](https://github.com/pymacaron/pymacaron/blob/master/pymacaron/exceptions.py).
+## Custom exceptions
 
-To make the endpoint return a json Error object, just raise the exception:
+All exceptions raised by your endpoints should inherit from 'pymacaron.exceptions.PyMacaronException', as in:
 
 ```python
 from pymacaron.exceptions import PyMacaronException
@@ -38,65 +31,104 @@ def do_login(userdata):
     raise InvalidUserError("Sorry, we don't know you")
 ```
 
-## Reporting non-fatal errors
+## Other exceptions
 
-Raising a PyMacaronException causes your endpoint to abort execution.
-
-If you only want to report a non-fatal error but continue executing the
-endpoint, you may report the error by calling 'report_error()' from
-[pymacaron.crash](https://github.com/pymacaron/pymacaron/blob/master/pymacaron/crash.py).
+Any exception raised by your endpoint that does not inherit from PyMacaronException will be converted to
+the generic 'SERVER_ERROR' exception:
 
 ```python
-from pymacaron.exceptions import is_error
-from pymacaron.crash import report_error
-
-profile = ApiPool.user.client.get_profile()
-
-# Did the 'get_profile' endpoint return an Error object?
-if is_error(profile):
-    # Send a crash report to your admins, including the error object
-    report_error("Oops. Failed to get user profile", caught=profile)
+class UnhandledServerError(PyMacaronException):
+    code = 'SERVER_ERROR'
+    status = 500
 ```
 
-The crash report above will have an auto-generated title starting with the
-text 'NON-FATAL BACKEND ERROR', to differentiate from crash reports that resulted
-from an exception in the server, reported as 'FATAL BACKEND ERROR'.
+Other python exceptions will be caught and reported as 
 
 
-You tell pymacaron what to do with crash reports by providing the
-'pymacaron.API' constructor with an 'error_reporter' callback:
+## Default json formatting of errors
+
+When an endpoint raises a python exception, it gets caught by pymacaron and returned
+to the caller as a json dict with the structure:
+
+```json
+{
+    "error": "INVALID_USER",                      # The exception's code
+    "error_description": "DB entry not found",    # String representation of the exception
+    "user_message": "Sorry, we don't know you",   # User friendly explanation (optional)
+    "status": 401                                 # Same as the response's HTTP status code
+}
+```
+
+
+## Custom json formatting
+
+To implement your own json format for API errors, declare an 'error_callback' when instantiating the pymacaron.API object:
 
 ```python
 from pymacaron import API, letsgo
 
-def my_crash_reporter(title, message):
+def custom_error_callback(e):
+    """Takes a PyMacaronException and returns a json dict representing it in your API's own error format"""
+    return {
+        ...
+    }
 
-    # title is a short description of the error, while message is a full json
-    # crash dump in string format, containing a traceback of the exception
-    # caught, data on the caller and runtime, etc. Now, send it to who you
-    # want!
-
-    send_email(to='admin@mysite.com', subject=title, body=message)
-    tell_slack(channel='crashes', msg="%s\n%s" % (title, message))
-
-def start(port=80, debug=False):
-
+def start(port=None, debug=None):
+    # ...
     api = API(
         app,
         port=port,
         debug=debug,
-        error_reporter=my_crash_reporter,
-        ..
+        error_callback=custom_error_callback,
     )
+    
+    api.load_apis(...)
+    api.start()
 
 letsgo(__name__, callback=start)
 ```
 
+## Reporting exceptions
 
-## Defining custom exceptions in batch
+You can instruct pymcaron to report exceptions to a method of your choice. This error reporter method should have the signature:
+
+```python
+def my_error_reporter(title='', data={}, exception=None):
+    """Takes a 'title', a data dict containing details about the trace and request context, and the exception instance.
+    If called via 'report_warning()', the exception is undefined.
+    """
+    pass
+```
+
+A custom error reporter is defined when instantiating pymacaron.API:
+
+```python
+
+def start(port=None, debug=None):
+    # ...
+    api = API(
+        app,
+        port=port,
+        debug=debug,
+        error_reporter=my_error_reporter,
+    ) 
+    
+    api.load_apis(...)
+    api.start()
+
+letsgo(__name__, callback=start)
+```
+
+## Reporting non-fatal errors
+
+You can trigger a call to your error reporter from anywhere in your endpoint by calling 'report_warning("custom message")'.
+
+See [pymacaron.crash](https://github.com/pymacaron/pymacaron/blob/master/pymacaron/crash.py) for details.
+
+## Batch declaration of custom exceptions
 
 As an alternative to subclassing PyMacaronException, you can also define your
-own exceptions by calling the 'add_error' method as below:
+own PyMacaronExceptions by calling 'pymacaron.exceptions.add_error()':
 
 ```
 from pymacaron.exceptions import add_error
@@ -111,7 +143,7 @@ exceptionclass = add_error(
     status=401,
 )
 
-# You can then inject the MyOwnException into the current module's namespace
+# You can then inject MyOwnException into the current module's namespace
 globals()['MyOwnException'] = exceptionclass
 
 # And now you can import it in other modules as well
@@ -121,39 +153,3 @@ globals()['MyOwnException'] = exceptionclass
 
 This is convenient if you want to define a large number of custom exceptions at
 once.
-
-
-## Unhandled errors
-
-If your endpoint crashes, an Error instance with a status code above or equal
-to 500 will be sent back to the caller, and a crash report will be sent via
-'report_error' and the 'error_reporter' callback.
-
-
-## Decorating errors with 'error_decorator'
-
-You can optionally intercept and manipulate all errors returned by a PyMacaron
-microservice by specifying an 'error_decorator' hook as follows:
-
-```python
-from pymacaron import API, letsgo
-
-def my_error_decorator(error):
-    # Get errors in json format, and return the decorated error
-    # In this example: we set a generic 'user_message' that is more
-    # friendly that the error_description
-    error['user_message'] = 'Something went really wrong! Try again later'
-    return error
-
-def start(port=80, debug=False):
-
-    api = API(
-        app,
-        port=port,
-        debug=debug,
-        error_decorator=my_error_decorator,
-        ..
-    )
-
-letsgo(__name__, callback=start)
-```
