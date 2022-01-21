@@ -1,15 +1,15 @@
-## Pymacaron: a Python microservive framework
+## Pymacaron
 
-A python microservice framework based on swagger, pydantic and Flask, using docker for
-packaging and deployable onto AWS/beanstalk, GKE or Google Cloud RUN.
+Pymacaron is a python microservice framework based on OpenAPI, pydantic and Flask, using docker for
+packaging and deployable onto AWS Beanstalk, Google Kubernetes and Google Cloud Run.
 
 ### Pymacaron vs FastAPI
 
 Pymacaron and [FastAPI](https://fastapi.tiangolo.com/) are quite similar. They are both based on [pydantic](https://pydantic-docs.helpmanual.io/) and they both ensure a strict mapping between OpenAPI specification and actual server code.
 
-But pymacaron takes a swagger first approach: pydantic declarations and Flask code are generated from the swagger file.
+But pymacaron takes an OpenAPI-first approach: pymacaron generates pydantic classes and Flask code based on OpenAPI specifications. FastAPI generates OpenAPI specifications based on pydantic classes.
 
-And pymacaron uses Flask while FastAPI does not.
+And pymacaron uses Flask, FastAPI does not.
 
 ### Get started
 
