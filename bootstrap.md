@@ -5,7 +5,7 @@ title: PyMacaron Get Started HOWTO
 Get Started
 ===========
 
-### Clone helloworld
+### Git clone helloworld
 
 Bootstrap your project by cloning
 [pymacaron-helloworld](https://github.com/pymacaron/pymacaron-helloworld) and
@@ -14,7 +14,7 @@ installing its dependencies:
 ```shell
 git clone git@github.com:pymacaron/pymacaron-helloworld.git
 cd pymacaron-helloworld
-virtualenv -p python3 env-pymacaron
+virtualenv -p python3.8 env-pymacaron
 source env-pymacaron/bin/activate
 pip3 install -r requirements.txt
 ```
@@ -38,8 +38,8 @@ python server --port 8080
 
 ### Run acceptance tests
 
-You run acceptance tests against the above server (started in a separate
-terminal) like this:
+Run acceptance tests against the above server (started in a separate
+terminal):
 
 ```shell
 $ cd pymacaron-helloworld
@@ -61,7 +61,7 @@ Ran 6 tests in 0.587s
 OK
 ```
 
-What happened above is that you just executed all the test files located under 'testaccept',
+What happened above is that you just executed all the test files located under 'testaccept/',
 which test various endpoints implemented in the Helloworld API.
 
 You can also run unittests the usual way:
