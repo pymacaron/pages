@@ -13,11 +13,15 @@ looking like this:
 ```
 .
 |   # apis/ contains the swagger specifications of your
-|   # microservice apis
+|   # microservice api, and their auto-generated pydantic models
+|   # and flask routes
 ├── apis
-│   └── myservice.yaml
-│   └── sendgrid.yaml
-│   └── auth0.yaml
+│   └── myapi_v1.yaml
+│   ├── myapi_v1_models.yaml
+│   ├── myapi_v1_app.yaml
+│   ├── myapi_v2.yaml
+│   ├── myapi_v2_models.yaml
+│   └── myapi_v2_app.yaml
 |
 |   # Implementation of your api's endpoints
 ├── myservice
