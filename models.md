@@ -5,9 +5,11 @@ title: Pymacaron models to instantiate API objects
 Pymacaron models
 ================
 
-## Swagger models as python objects
+## OpenAPI models as python objects
 
-Pymacaron generates an object class for every object defined in the API's swagger specifications.
+Pymacaron generates an object class for every object defined in the loaded OpenAPI specifications.
+
+Every endpoint body payload and every endpoint reply defined in OpenAPI maps to a pymacaron model class.
 
 Pymacaron objects are declared using [pydantic](https://pydantic-docs.helpmanual.io/) and [PymacaronBaseModel](https://github.com/pymacaron/pymacaron-core/blob/master/pymacaron_core/models.py). Pymacaron objects can be accessed via 'pymacaron.apipool'.
 
@@ -92,7 +94,11 @@ from pymacaron import apipool
 
 l = apipool.MyLocation(lat=1, lng=2)
 
-j = l.to_json()
+j = l.to_json(
+    datetime_encoder=lamdba d: d.isoformat(),
+    exclude_unset=True,
+    exclude_none=True,
+)
 
 l = apipool.MyLocation.from_json(j)
 ```
@@ -116,21 +122,18 @@ Get a list of the model's properties:
 ['lat', 'lng']
 ```
 
-
-## Under the hood
-
-If your swagger specifications is located at 'apis/myapi.yaml', pymacaron generates and loads the file 'apis/myapi_models.py'. Look at this file to
-see how pymacaron models are declared.
-
 ## Using inheritance
 
-Pymacaron models can be declared to inherit from a custom class. This allows you to add arbitrary methods to any API object, a very convenient pattern when building more advanced server logic.
+A pymacaron model can be declared to inherit from a custom class.
 
-### Adding inheritance in swagger
+This allows you to add arbitrary methods to any API object, a very convenient pattern when building more advanced server logic.
 
-Use the 'x-parent' declaration in the OpenAPI specification to automagically
-make all instances of a given schema object inherit from a given python
-class. Let's make 'MyLocation' inherit from a custom class:
+### Declaring inheritance in OpenAPI
+
+Add 'x-parent: path.to.parent' to the OpenAPI definition of a model to make
+its pymacaron class inherit from 'parent'.
+
+The example below makes 'MyLocation' inherit from 'LocationLogic':
 
 ```yaml
 definitions:
