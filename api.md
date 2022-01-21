@@ -2,10 +2,10 @@
 title: Pymacaron API definition
 ---
 
-API definition with swagger
+API definition with OpenAPI
 ===========================
 
-Pymacaron uses OpenAPI (aka swagger) to define microservice APIs. 
+Pymacaron uses OpenAPI (aka swagger) to generate Flask routes and pydantic objects classes used by your API. 
 
 You should be familiar with [the OpenAPI specification](https://swagger.io/specification/) and its
 [examples](https://github.com/OAI/OpenAPI-Specification/tree/master/examples/v3.0).
@@ -15,6 +15,41 @@ The prefered way to store swagger files in a pymacaron project is under the [api
 ## Limitations
 
 Pymacaron supports only OpenAPI version 2.
+
+## Automatic code generation
+
+Starting a pymacaron server involves calling the methods 'load_apis()' and 'start()' on a pymacaron.API instance:
+
+```python
+form flask import Flask
+from pymacaron import API, letsgo
+
+def start_server(port=80, debug=False):
+
+    api = API(
+        Flask(__name__))
+        port=port,
+        debug=debug,
+    )
+
+    api.load_apis()
+
+    api.start()
+
+letsgo(__name__, callback=start)
+```
+
+Method 'load_apis()' finds your microservice's OpenAPI specifications (usually located under '/apis') and does two things:
+
+* For each swagger file 'apis/myapi.yaml', generate a python file 'apis/myapi_models.py' containing pytdantic class declarations for every API objects defined in swagger (request bodys and API replies), and import those classes into 'pymacaron.apipool'.
+
+* For each swagger file 'apis/myapi.yaml', generate a python file 'apis/myapi_app.py' containing a method 'load_endpoints()' that declares every Flask route and endpoint defined in swagger.
+
+Note that 'load_apis()' generates the models and app files only if they are missing, or if the swagger file has been updated more recently than them.
+
+Examples of those files can be found in pymacaron-helloworld: [here] and [here].
+
+It is recommended to commit those files together with your swagger files.
 
 ## Custom OpenAPI attributes
 
