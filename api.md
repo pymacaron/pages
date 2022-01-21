@@ -47,7 +47,7 @@ Method 'load_apis()' finds your microservice's OpenAPI specifications (usually l
 
 Note that 'load_apis()' generates the models and app files only if they are missing, or if the swagger file has been updated more recently than them.
 
-Examples of those files can be found in pymacaron-helloworld: [here] and [here].
+Examples of those files can be found in pymacaron-helloworld: [helloworld_models.py](https://github.com/pymacaron/pymacaron-helloworld/blob/master/apis/helloworld_models.py) and [helloworld_app.py](https://github.com/pymacaron/pymacaron-helloworld/blob/master/apis/helloworld_app.py).
 
 It is recommended to commit those files together with your swagger files.
 
