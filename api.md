@@ -138,7 +138,7 @@ userId
 
 #### x-bind-server: path.to.endpointmethod
 
-In an endpoint definition, tell Flask to bind the python method 'endpointmethod' to this route.
+In an endpoint definition, tell Flask to bind the python method 'endpointmethod' to this route. See example below.
 
 #### x-decorate-server: path.to.endpointdecorator
 
