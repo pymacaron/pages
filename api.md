@@ -53,11 +53,96 @@ It is recommended to commit those files together with your swagger files.
 
 ## Custom OpenAPI attributes
 
-Pymacaron extends the OpenAPI standard with the following custom attributes: 
+Pymacaron extends the OpenAPI standard with the following custom attributes:
 
-* 'x-parent: path.to.parentclass': in a model definition, make the pydantic class of this model inherit from 'parentclass'. 
-* 'x-bind-server: path.to.endpointmethod': in an endpoint definition, tell Flask to call 'endpointmethod' for this route.
-* 'x-decorate-server: path.to.endpointdecorator': in an endpoint definition, wrap the endpoint method with the method 'endpointdecorator'. Typically used to [enforce JWT authentication](jwt.html).
+#### x-parent: path.to.parentclass
+
+In a model definition, make the pydantic class of this model inherit from 'parentclass'.
+
+```
+definitions:
+  UserProfile:
+    type: object
+    description: A user profile
+    x-parent: mymodule.users.UserProfileMethods
+    properties:
+      userId:
+        description: User ID
+        type: string
+      name:
+        description: User name
+        type: string
+      ...
+```
+
+#### x-nullable: true
+
+Under a property in a model definition, indicate that if the pydantic attribute named after this property holds the value None, the json document representing the object should contain that property with the value null. If 'x-nullable: true' is omitted, the null property is removed from the json document.
+
+Example:
+
+```
+definitions:
+  UserProfile:
+    type: object
+    description: A user profile
+    properties:
+      userId:
+        x-nullable: true
+        description: User ID
+        type: string
+      name:
+        description: User name
+        type: string      
+```
+
+Then the following objects will serialize to json as follows:
+
+```
+>>> p = apipool.example.UserProfile(userId=None, name=None)
+>>> p.to_json()
+{'userId': null}
+```
+
+#### x-mandatory: true
+
+Under a property in a model definition, indicate that this property must be set in the corresponding pydantic object.
+
+Example:
+
+```
+definitions:
+  UserProfile:
+    type: object
+    description: A user profile
+    properties:
+      userId:
+        x-mandatory: true
+        description: User ID
+        type: string
+      name:
+        description: User name
+        type: string      
+```
+
+Instantiating a UserProfile now requires 'userId' to be set:
+
+```
+>>> p = apipool.example.UserProfile(userId='bob')
+UserProfile(userId='bob', name=None)
+>>> p = apipool.example.UserProfile()
+pydantic.error_wrappers.ValidationError: 1 validation errors for UserProfile
+userId
+ field required (type=value_error.missing)
+```
+
+#### x-bind-server: path.to.endpointmethod
+
+In an endpoint definition, tell Flask to bind the python method 'endpointmethod' to this route.
+
+#### x-decorate-server: path.to.endpointdecorator
+
+In an endpoint definition, wrap the endpoint method with the method 'endpointdecorator'. Typically used to [enforce JWT authentication](jwt.html).
 
 ## Binding an API endpoint to a Python method
 
